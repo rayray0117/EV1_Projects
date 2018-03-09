@@ -1,0 +1,11 @@
+
+void RHIStartup()
+{
+
+}
+
+void RHIShutdown()
+{
+
+}
+

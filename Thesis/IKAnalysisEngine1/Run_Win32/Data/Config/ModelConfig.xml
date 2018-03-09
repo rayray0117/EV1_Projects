@@ -1,0 +1,204 @@
+<CharacterConfig>
+  <!--Name the model, gives its path without the file extension, num does nothing and is just there for easier reading when wanting to load a specific model -->
+  <Model name="UE4 Character" path="Data/Models/UE4_TPC/SK_Mannequin" num="0">
+    <!-- Motions to load! System will automatically make the bind pose into a motion.-->
+    <Motion name="Idle" path="Data/Models/UE4_TPC/ThirdPersonIdle"/>
+    <Motion name="Walk" path="Data/Models/UE4_TPC/ThirdPersonWalk"/>
+    <Motion name="Run" path="Data/Models/UE4_TPC/ThirdPersonRun"/>
+    <Motion name="Jump_Start" path="Data/Models/UE4_TPC/ThirdPersonJump_Start"/>
+    <Motion name="Jump_Loop" path="Data/Models/UE4_TPC/ThirdPersonJump_Loop"/>
+    <Motion name="Jump_End" path="Data/Models/UE4_TPC/ThirdPersonJump_End"/>
+
+    <IK>
+      <!--The program only looks for "Chain", so you can easily comment out chains by adding an extra letter -->
+      <!--Root is the start of the chain and end is where you want the end effector. Must be able to reach the end by tranversing down the root or the chain creation will fail! -->
+      <!--forceRoot, forces the root to be in the position the regular fk animation states it is in. Intended for joints like the spine, where its root node (pelvis) is attached directly to the main root and can't be easily moved by rotational IK-->
+     
+      <Chain name="spine" root="pelvis" end="neck_01" forceRoot="true">
+        <Constraint jointName="pelvis">
+          <Angles min="0 90 0" max="0 90 0"/>
+          <!--0, -90, 0 straightens up and faces Z -->
+        </Constraint>
+        <Constraint jointName="spine_01">
+          <Angles min="0 -35 -20" max="0 35 65"/>
+        </Constraint>
+        <Constraint jointName="spine_02">
+          <Angles min="0 -5 -10" max="0 5 20"/>
+        </Constraint>
+        <Constraint jointName="spine_03">
+          <Angles min="0 -5 -10" max="0 5 25"/>
+        </Constraint>
+        <Constraint jointName="neck_01">
+          <Angles min="0 0 -55" max="0 0 60"/>
+        </Constraint>
+        <Constraintn jointName="head">
+          <Angles min="0 0 70" max="0 0 70"/>
+        </Constraintn>
+      </Chain>
+
+        <Chain name="l_leg" root="thigh_l" end="foot_l" forceRoot="false">
+        <Constraint jointName="thigh_l">
+          <Angles min="-0 -20 -120" max="0 40 40"/>
+          <!-- 0,0,0 forces legs to straighten up.  -90 sends leg to front. 90 send leg to back. Range -90 to 0 to 90 (-180,180)-->
+          <RotAxis axis="0 0 -1"/>
+        </Constraint>
+        <Constraint jointName="calf_l">
+          <Angles min="0 0 -15" max="0 0 170"/>
+          <!--Good Hinge angles are from 0 to 90 to 180 on the z axis.-->
+          <RotAxis axis="0 0 -1"/>
+          <Direction dir="0 0 1"/>
+        </Constraint>
+        <Constraint jointName="foot_l">
+          <Angles min="-0 -0 -0" max="0 0 0"/>
+          <RotAxis axis="0 0 -1"/>
+        </Constraint>
+      </Chain>
+
+      <Chain name="r_leg" root="thigh_r" end="foot_r" forceRoot="false">
+        <Constraint jointName="thigh_r">
+          <Angles min="-0 -20 60" max="0 40 210" 360="0 0 1"/> <!--360 is a vec3 value where 0 = false and 1 = true for the use of calculating the angle as 0 - 360 for the respective columns-->
+          <!--x 40 = internal rotation x -45 external rotation-->
+          <!-- z 60 = max kick up 210 = leg back-->
+          <!-- 0, 0, 180 straightens out leg. -90 aka 270 sends leg to back. 90 send leg to front. Range 90 to 270 (0, 360)-->
+          <!--clamp states the max amount angle change (+/-) the joint can turn during one iteration-->
+          <RotAxis axis="0 0 1"/>
+        </Constraint>
+        <Constraint jointName="calf_r">
+          <Angles min="0 0 -15" max="0 0 170"/>
+          <!--Good Hinge angles are from 0 to 90 to 180 on the z axis.-->
+          <RotAxis axis="0 0 1"/>
+          <Direction dir="0 0 1"/>
+        </Constraint>
+        <Constraint jointName="foot_r">
+          <Angles min="-0 -0 -0" max="0 0 0"/>
+          <RotAxis axis="0 0 -1"/>
+        </Constraint>
+      </Chain>
+
+      
+     <!--
+      <Chain name="l_clavicle" root="spine_03" end="upperarm_l" forceRoot="false">
+        <Constraint jointName="spine_03">
+          <Angles min="0 0 0" max="0 0 0"/>
+        </Constraint>
+        <Constraint jointName="clavicle_l">
+          <Angles min="0 -90 0" max="0 -90 0"/>
+          <RotAxis axis="0 0 1"/>
+        </Constraint>
+        <Constraint jointName="upperarm_l">
+          <Angles min="0 0 0" max="0 0 0"/>
+          <RotAxis axis="0 0 1"/>
+        </Constraint>
+      </Chain>
+
+      <Chain name="r_clavicle" root="spine_03" end="upperarm_r" forceRoot="false">
+        <Constraint jointName="spine_03">
+          <Angles min="0 0 0" max="0 0 0"/>
+        </Constraint>
+        <Constraint jointName="clavicle_r">
+          <Angles min="0 -90 0" max="0 -90 0"/>
+          <RotAxis axis="0 0 1"/>
+        </Constraint>
+        <Constraint jointName="upperarm_r">
+          <Angles min="0 0 0" max="0 0 0"/>
+          <RotAxis axis="0 0 1"/>
+        </Constraint>
+      </Chain>
+      -->
+      
+      
+      <Chain name="l_arm" root="upperarm_l" end="hand_l" forceRoot="false">
+        <Constraint jointName="upperarm_l">
+          <Angles min="0 -90 -45" max="0 -65 130"/>
+          <!-- y RANGE = -135 to 0 to 90 (-180, 90) -->
+          <!-- z Range = 130 to 0 to -45-->
+          <!-- 0, -90, 0 = arms down elbows in.-->
+          <!-- 0, 90, 130 = elbows in -->
+          <!-- 0, 0, 90 = arm out like a zombie.-->
+          <!-- 0, 90, -180 = arms straight up-->
+          <RotAxis axis="0 0 1"/>
+        </Constraint>
+        <Constraint jointName="lowerarm_l">
+          <Angles min="0 0 0" max="0 0 150"/>
+          <!-- -150 to -90 to 0. (-150, 0).-->
+          <RotAxis axis="0 0 1"/>
+        </Constraint>
+        <Constraint jointName="hand_l">
+          <Angles min="-0 -0 -0" max="0 0 0"/>
+          <RotAxis axis="0 0 1"/>
+        </Constraint>
+      </Chain>
+
+      <Chain name="r_arm" root="upperarm_r" end="hand_r" forceRoot="false">
+        <Constraint jointName="upperarm_r">
+          <Angles min="0 -90 -45" max="0 -50 130"/>
+          <!-- -135 on the y allows elbows to go "into"/over the body. 90 is the full amount the arm is allowed to go out/all the way up. 0 on the y has arms straight out! -->
+          <!-- Arm Swing aka z RANGE = -180 to -90 to 90 (-180, 90). elbow left range = 0 to 90 (0, 90) -->
+          <!-- 0, -90, 0 = arms down elbows in.-->
+          <!-- 0, 90, 45 = elbows in and back/ arms back.-->
+          <!-- 0, 90, 90 = arm out like a zombie.-->
+          <!-- 0, 90, -180 = arms straight up-->
+          <RotAxis axis="0 0 1"/>
+        </Constraint>
+        <Constraint jointName="lowerarm_r">
+          <Angles min="0 0 0" max="0 0 150"/>
+          <!-- -150 to -90 to 0. (-150, 0).-->
+          <RotAxis axis="0 0 1"/>
+        </Constraint>
+        <Constraint jointName="hand_r">
+          <Angles min="-0 -0 -0" max="0 0 0"/>
+          <RotAxis axis="0 0 1"/>
+        </Constraint>
+      </Chain>
+      <!--Motions(animations) are named the same as their fk counterpart-->
+      <Motion name="Walk"/>
+      <Motion name="Run"/>
+    </IK>
+
+  </Model>
+
+  <Model name="Child" path="Data/Models/UpInTheAir/RIG_Character_Child_Normal" num="1">
+    <!-- Motions to load! System will automatically make the bind pose into a motion.-->
+    <Motion name="Idle" path="Data/Models/UpInTheAir/ANIM_Character_Children_Normal_Idle"/>
+    <Motion name="Run" path="Data/Models/UpInTheAir/ANIM_Character_Children_Normal_Run" framerate="30"/>
+    <Motion name="Eat" path="Data/Models/UpInTheAir/ANIM_Character_Children_Normal_Eating"/>
+    <Motion name="Kick" path="Data/Models/UpInTheAir/ANIM_Character_Children_Normal_Kick"/>
+    <Motion name="Pop" path="Data/Models/UpInTheAir/ANIM_Character_Children_Normal_Popping"/>
+    <Motion name="Pickup" path="Data/Models/UpInTheAir/ANIM_Character_Children_Normal_Pickup"/>
+    <Motion name="Dab" path="Data/Models/UpInTheAir/ANIM_Character_Children_Normal_IdleBreak_Dab"/>
+    
+    <IK>
+      <Chain name="spine" root="Spine5" end="Torso" forceRoot="true">
+        <Constraintn jointName="pelvis">
+          <Angles min="-360 -360 -360" max="360 360 360"/>
+        </Constraintn>
+      </Chain>
+
+      <Chain name="l_leg" root="Left_Leg_Upper01" end="Left_Leg_Lower02" forceRoot="true">
+        <Constraintn jointName="thigh_l">
+          <Angles min="-360 -360 -360" max="360 360 360"/>
+        </Constraintn>
+      </Chain>
+
+      <Chain name="r_leg" root="Right_Leg_Upper01" end="Right_Leg_Lower02" forceRoot="true">
+        <Constraintn jointName="thigh_r">
+          <Angles min="-360 -360 -360" max="360 360 360"/>
+        </Constraintn>
+      </Chain>
+
+      <Chainn name="l_arm" root="Arm_Left_01" end="Arm_Left_05" forceRoot="false">
+        <Constraintn jointName="upperarm_l">
+          <Angles min="-360 -360 -360" max="360 360 360"/>
+        </Constraintn>
+      </Chainn>
+
+      <Chainn name="r_arm" root="Arm_Right_01" end="Arm_Right_05" forceRoot="false">
+        <Constraintn jointName="upperarm_r">
+          <Angles min="-360 -360 -360" max="360 360 360"/>
+        </Constraintn>
+      </Chainn>
+      <Motion name="Run"/>
+    </IK>
+
+  </Model>
+</CharacterConfig>

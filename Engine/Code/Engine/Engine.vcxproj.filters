@@ -1,0 +1,874 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="General">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{4034ad0e-e69d-45bd-9c5a-b43058af8742}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{fd48da49-f775-4f5f-a4fb-75ff16311950}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{a0e1c749-9c73-4666-bbab-ecf03836ebb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{0679f32c-a8ac-4619-956c-f8169b9bb4fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Audio">
+      <UniqueIdentifier>{ac1cc56e-6465-4c9c-a0d1-8457ce9c3022}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math\2DPrimitives">
+      <UniqueIdentifier>{5e792e7b-f282-4ef9-b34f-b5e852c2e65e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math\3DPrimitives">
+      <UniqueIdentifier>{10832b25-1c4c-4483-90d8-26b103c9d5ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RHI">
+      <UniqueIdentifier>{38cc0b13-ecc4-4b65-8e90-a2e9a02d800d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RHI\Buffers">
+      <UniqueIdentifier>{aaa99c99-2b71-4309-8383-3436ce80e824}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RHI\RHI Base">
+      <UniqueIdentifier>{93505131-9cb3-4e39-b989-a62d28113c56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RHI\DX11">
+      <UniqueIdentifier>{124be5fe-5494-4867-9cd2-1b0dab3add0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RHI\Pipline">
+      <UniqueIdentifier>{1749ac34-3182-4da1-93f3-1341da27c48b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tools">
+      <UniqueIdentifier>{9ac6e34a-4789-4375-af7a-cfca49cbaf69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Files And Parsing">
+      <UniqueIdentifier>{15eb90ed-2628-4c47-8995-9ecc12c7359f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Animation3D">
+      <UniqueIdentifier>{6167ab28-3ad1-4e65-9b3a-0ad4f71a6136}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Fonts">
+      <UniqueIdentifier>{3aa89d05-0d2c-4c08-88a8-058d1009fe6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Meshs">
+      <UniqueIdentifier>{7736fc49-f944-435a-a675-6f0a5003977e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math\4DPrimitives">
+      <UniqueIdentifier>{9f93027d-7bc2-4e97-9ff8-5e0f9e6f5843}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Pipline">
+      <UniqueIdentifier>{703db66e-f9eb-423c-b5c1-ce5b9a74fe45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Sprites">
+      <UniqueIdentifier>{dab35367-8a5c-4a3e-a26d-d514213de342}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Renderers">
+      <UniqueIdentifier>{d5f16066-824e-47f0-b280-902faa6cb867}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Threads Events and Memory">
+      <UniqueIdentifier>{b0194f2d-4463-4ecd-9c13-ecd553eb790b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Squirrel Tools">
+      <UniqueIdentifier>{884a5d4b-41d9-4781-8c47-871819a0e484}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Profiler">
+      <UniqueIdentifier>{b3db10e0-c2f4-4ef2-9f46-21b1017b56be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\ParticleSystem">
+      <UniqueIdentifier>{7eaad831-71a6-4d65-9a9c-59a7f904e8af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Networking">
+      <UniqueIdentifier>{8e2d185b-e81d-4459-b736-3aff0c7cd9ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IK">
+      <UniqueIdentifier>{683af60d-52a6-4853-a29a-faa0ed1312cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IK\Solvers">
+      <UniqueIdentifier>{ee754aa9-eb52-45ed-9940-559bbae436a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IK\Animation">
+      <UniqueIdentifier>{2cdd8a88-24de-40c6-919f-6f5e81e79989}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IK\Base">
+      <UniqueIdentifier>{cb108106-1fd5-4613-97a5-945193dbc11a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Math\MathUtils.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\InputSystem.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Rgba.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\XboxController.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Audio\Audio.cpp">
+      <Filter>Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\AABB2.cpp">
+      <Filter>Math\2DPrimitives</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\DirectedLineSegment2D.cpp">
+      <Filter>Math\2DPrimitives</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Disc2D.cpp">
+      <Filter>Math\2DPrimitives</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\IntVector2.cpp">
+      <Filter>Math\2DPrimitives</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Vector2.cpp">
+      <Filter>Math\2DPrimitives</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Vector3.cpp">
+      <Filter>Math\3DPrimitives</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Sphere3D.cpp">
+      <Filter>Math\3DPrimitives</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\AABB3D.cpp">
+      <Filter>Math\3DPrimitives</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\DirectedLineSegment3D.cpp">
+      <Filter>Math\3DPrimitives</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Image.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\IntVector3.cpp">
+      <Filter>Math\3DPrimitives</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Noise.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Window.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Config.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\SimpleRenderer.cpp">
+      <Filter>RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\ConstantBuffer.cpp">
+      <Filter>RHI\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\IndexBuffer.cpp">
+      <Filter>RHI\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\VertexBuffer.cpp">
+      <Filter>RHI\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\RHIDevice.cpp">
+      <Filter>RHI\RHI Base</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\RHIDeviceContext.cpp">
+      <Filter>RHI\RHI Base</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\RHIInstance.cpp">
+      <Filter>RHI\RHI Base</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\RHIOutput.cpp">
+      <Filter>RHI\RHI Base</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\DX11.cpp">
+      <Filter>RHI\DX11</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\RHI.cpp">
+      <Filter>RHI\RHI Base</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\RasterState.cpp">
+      <Filter>RHI\Pipline</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\Sampler.cpp">
+      <Filter>RHI\Pipline</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\ShaderProgram.cpp">
+      <Filter>RHI\Pipline</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\Texture2D.cpp">
+      <Filter>RHI\Pipline</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\BlendState.cpp">
+      <Filter>RHI\Pipline</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Console.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\EngineConfig.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\DepthStencilState.cpp">
+      <Filter>RHI\Pipline</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Command.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\fbx.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\MatrixStack.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\FileUtils.cpp">
+      <Filter>Core\Files And Parsing</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\ParseUtils.cpp">
+      <Filter>Core\Files And Parsing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ThirdParty\XMLParser\XMLParser.cpp">
+      <Filter>Core\Files And Parsing</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\ObjLoader.cpp">
+      <Filter>Core\Files And Parsing</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\XMLParseHelper.cpp">
+      <Filter>Core\Files And Parsing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ThirdParty\MikkT\mikktspace.c">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Quaternion.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Skeleton.cpp">
+      <Filter>Renderer\Animation3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\BitmapFont.cpp">
+      <Filter>Renderer\Fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Font.cpp">
+      <Filter>Renderer\Fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Transform.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\SkeletonInstance.cpp">
+      <Filter>Renderer\Animation3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Motion.cpp">
+      <Filter>Renderer\Animation3D</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\Shader.cpp">
+      <Filter>RHI\Pipline</Filter>
+    </ClCompile>
+    <ClCompile Include="General\DataDrivenDefinition.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Mesh.cpp">
+      <Filter>Renderer\Meshs</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\MeshBuilder.cpp">
+      <Filter>Renderer\Meshs</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\MeshGenerator.cpp">
+      <Filter>Renderer\Meshs</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\TextMeshBuilder.cpp">
+      <Filter>Renderer\Meshs</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Pose.cpp">
+      <Filter>Renderer\Animation3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Vector4.cpp">
+      <Filter>Math\4DPrimitives</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Matrix4.cpp">
+      <Filter>Math\4DPrimitives</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\UIntVector4.cpp">
+      <Filter>Math\4DPrimitives</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\StructuredBuffer.cpp">
+      <Filter>RHI\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\Material.cpp">
+      <Filter>RHI\Pipline</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\BinaryStream.cpp">
+      <Filter>Core\Files And Parsing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ThirdParty\stb\stb_image.c">
+      <Filter>Renderer\Pipline</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Texture.cpp">
+      <Filter>Renderer\Pipline</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\SpriteAnim.cpp">
+      <Filter>Renderer\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\SpriteSheet.cpp">
+      <Filter>Renderer\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Renderer.cpp">
+      <Filter>Renderer\Renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Thread.cpp">
+      <Filter>Core\Threads Events and Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Memory.cpp">
+      <Filter>Core\Threads Events and Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Callstack.cpp">
+      <Filter>Core\Threads Events and Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\ErrorWarningAssert.cpp">
+      <Filter>Core\Squirrel Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\StringUtils.cpp">
+      <Filter>Core\Squirrel Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Time.cpp">
+      <Filter>Core\Squirrel Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Event.cpp">
+      <Filter>Core\Threads Events and Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\CriticalSection.cpp">
+      <Filter>Core\Threads Events and Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Logger.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Signal.cpp">
+      <Filter>Core\Threads Events and Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Profiler.cpp">
+      <Filter>Core\Profiler</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\ProfilerReport.cpp">
+      <Filter>Core\Profiler</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\JobSystem.cpp">
+      <Filter>Core\Threads Events and Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\ParticleSystem.cpp">
+      <Filter>Renderer\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\ParticleEmitter.cpp">
+      <Filter>Renderer\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Particle.cpp">
+      <Filter>Renderer\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\ParticleManager.cpp">
+      <Filter>Renderer\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\ComputeShader.cpp">
+      <Filter>RHI\Pipline</Filter>
+    </ClCompile>
+    <ClCompile Include="Networking\Net.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="Networking\LoopBackConnection.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="Networking\NetConnection.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="Networking\NetMessage.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="Networking\NetSession.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="Networking\TCPConnection.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="Networking\TCPSession.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="Networking\TCPSocket.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\LinkList.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Networking\NetObjectSystem.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Job.cpp">
+      <Filter>Core\Threads Events and Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Sprite.cpp">
+      <Filter>Renderer\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="IK\IKRig.cpp">
+      <Filter>IK</Filter>
+    </ClCompile>
+    <ClCompile Include="IK\CCDSolver.cpp">
+      <Filter>IK\Solvers</Filter>
+    </ClCompile>
+    <ClCompile Include="IK\FABRIKSolver.cpp">
+      <Filter>IK\Solvers</Filter>
+    </ClCompile>
+    <ClCompile Include="IK\Jacobian5JointSolver.cpp">
+      <Filter>IK\Solvers</Filter>
+    </ClCompile>
+    <ClCompile Include="IK\IKSolver.cpp">
+      <Filter>IK</Filter>
+    </ClCompile>
+    <ClCompile Include="IK\IKMotion.cpp">
+      <Filter>IK\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="IK\IKChain.cpp">
+      <Filter>IK\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="IK\IKJoint.cpp">
+      <Filter>IK\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="IK\IKLink.cpp">
+      <Filter>IK\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="General\UniversalFunction.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
+    <ClCompile Include="IK\IKConstraint.cpp">
+      <Filter>IK\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="IK\CCDConstrainedSolver.cpp">
+      <Filter>IK\Solvers</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Rig.cpp">
+      <Filter>Renderer\Animation3D</Filter>
+    </ClCompile>
+    <ClCompile Include="IK\TwoBoneSolver.cpp">
+      <Filter>IK\Solvers</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Rotator.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Math\MathUtils.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\InputSystem.hpp">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Rgba.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\XboxController.hpp">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Audio\Audio.hpp">
+      <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\fmod\fmod.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\fmod\fmod.hpp">
+      <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\fmod\fmod_codec.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\fmod\fmod_dsp.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\fmod\fmod_errors.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\fmod\fmod_memoryinfo.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\fmod\fmod_output.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\AABB2.hpp">
+      <Filter>Math\2DPrimitives</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\DirectedLineSegment2D.hpp">
+      <Filter>Math\2DPrimitives</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Disc2D.hpp">
+      <Filter>Math\2DPrimitives</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\IntVector2.hpp">
+      <Filter>Math\2DPrimitives</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector2.hpp">
+      <Filter>Math\2DPrimitives</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector3.hpp">
+      <Filter>Math\3DPrimitives</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Sphere3D.hpp">
+      <Filter>Math\3DPrimitives</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\AABB3D.hpp">
+      <Filter>Math\3DPrimitives</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\DirectedLineSegment3D.hpp">
+      <Filter>Math\3DPrimitives</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Image.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\IntVector3.hpp">
+      <Filter>Math\3DPrimitives</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Noise.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\EngineBase.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Window.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\EngineConfig.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Config.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\SimpleRenderer.hpp">
+      <Filter>RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\RK4.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\ConstantBuffer.hpp">
+      <Filter>RHI\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\IndexBuffer.hpp">
+      <Filter>RHI\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\VertexBuffer.hpp">
+      <Filter>RHI\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\RHIOutput.hpp">
+      <Filter>RHI\RHI Base</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\RHIDevice.hpp">
+      <Filter>RHI\RHI Base</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\RHIDeviceContext.hpp">
+      <Filter>RHI\RHI Base</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\RHIInstance.hpp">
+      <Filter>RHI\RHI Base</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\DX11.hpp">
+      <Filter>RHI\DX11</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\RHI.hpp">
+      <Filter>RHI\RHI Base</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\RHITypes.hpp">
+      <Filter>RHI\RHI Base</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\RasterState.hpp">
+      <Filter>RHI\Pipline</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\Sampler.hpp">
+      <Filter>RHI\Pipline</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\ShaderProgram.hpp">
+      <Filter>RHI\Pipline</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\Texture2D.hpp">
+      <Filter>RHI\Pipline</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\BlendState.hpp">
+      <Filter>RHI\Pipline</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Console.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\DepthStencilState.hpp">
+      <Filter>RHI\Pipline</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Command.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\fbx.hpp">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\RenderableString.hpp">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\MatrixStack.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\FileUtils.hpp">
+      <Filter>Core\Files And Parsing</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ParseUtils.hpp">
+      <Filter>Core\Files And Parsing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\XMLParser\XMLParser.hpp">
+      <Filter>Core\Files And Parsing</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ObjLoader.hpp">
+      <Filter>Core\Files And Parsing</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\XMLParseHelper.h">
+      <Filter>Core\Files And Parsing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\MikkT\mikktspace.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Quaternion.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Skeleton.hpp">
+      <Filter>Renderer\Animation3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\BitmapFont.hpp">
+      <Filter>Renderer\Fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Font.hpp">
+      <Filter>Renderer\Fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Transform.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\SkeletonInstance.hpp">
+      <Filter>Renderer\Animation3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Pose.hpp">
+      <Filter>Renderer\Animation3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Motion.hpp">
+      <Filter>Renderer\Animation3D</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\Shader.hpp">
+      <Filter>RHI\Pipline</Filter>
+    </ClInclude>
+    <ClInclude Include="General\DataDrivenDefinition.hpp">
+      <Filter>General</Filter>
+    </ClInclude>
+    <ClInclude Include="General\WeightedList.hpp">
+      <Filter>General</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Mesh.hpp">
+      <Filter>Renderer\Meshs</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\MeshBuilder.hpp">
+      <Filter>Renderer\Meshs</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\MeshGenerator.hpp">
+      <Filter>Renderer\Meshs</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\TextMeshBuilder.hpp">
+      <Filter>Renderer\Meshs</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector4.hpp">
+      <Filter>Math\4DPrimitives</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Matrix4.hpp">
+      <Filter>Math\4DPrimitives</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\UIntVector4.hpp">
+      <Filter>Math\4DPrimitives</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\StructuredBuffer.hpp">
+      <Filter>RHI\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\Material.hpp">
+      <Filter>RHI\Pipline</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\BinaryStream.hpp">
+      <Filter>Core\Files And Parsing</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\DrawInstruction.hpp">
+      <Filter>Renderer\Meshs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\stb\stb_image.h">
+      <Filter>Renderer\Pipline</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Texture.hpp">
+      <Filter>Renderer\Pipline</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Vertex3D.hpp">
+      <Filter>Renderer\Pipline</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\OpenGL\glext.h">
+      <Filter>Renderer\Pipline</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\SpriteSheet.hpp">
+      <Filter>Renderer\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\SpriteAnim.hpp">
+      <Filter>Renderer\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Renderer.hpp">
+      <Filter>Renderer\Renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Thread.hpp">
+      <Filter>Core\Threads Events and Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Memory.hpp">
+      <Filter>Core\Threads Events and Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Callstack.hpp">
+      <Filter>Core\Threads Events and Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ErrorWarningAssert.hpp">
+      <Filter>Core\Squirrel Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\StringUtils.hpp">
+      <Filter>Core\Squirrel Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Time.hpp">
+      <Filter>Core\Squirrel Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Event.hpp">
+      <Filter>Core\Threads Events and Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\CriticalSection.hpp">
+      <Filter>Core\Threads Events and Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Logger.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Signal.hpp">
+      <Filter>Core\Threads Events and Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\TemplateArgs.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Singleton.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ProfileLogScope.hpp">
+      <Filter>Core\Profiler</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Profiler.hpp">
+      <Filter>Core\Profiler</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ProfilerReport.hpp">
+      <Filter>Core\Profiler</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\JobSystem.hpp">
+      <Filter>Core\Threads Events and Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Atomic.hpp">
+      <Filter>Core\Threads Events and Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\ParticleSystem.hpp">
+      <Filter>Renderer\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\ParticleEmitter.hpp">
+      <Filter>Renderer\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Particle.hpp">
+      <Filter>Renderer\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\ParticleManager.hpp">
+      <Filter>Renderer\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\ComputeShader.hpp">
+      <Filter>RHI\Pipline</Filter>
+    </ClInclude>
+    <ClInclude Include="Networking\Net.hpp">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="Networking\NetMessage.hpp">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="Networking\NetMessageDefinition.hpp">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="Networking\NetSession.hpp">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="Networking\TCPSession.hpp">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="Networking\NetConnection.hpp">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="Networking\TCPConnection.hpp">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="Networking\LoopBackConnection.hpp">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="Networking\RemoteCommandService.hpp">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="Networking\TCPSocket.hpp">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\LinkList.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="General\Names.hpp">
+      <Filter>General</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\UIdVector.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Networking\NetObjectSystem.hpp">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="Networking\Interval.hpp">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Job.hpp">
+      <Filter>Core\Threads Events and Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Sprite.hpp">
+      <Filter>Renderer\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="IK\IKSolver.hpp">
+      <Filter>IK</Filter>
+    </ClInclude>
+    <ClInclude Include="IK\IKRig.hpp">
+      <Filter>IK</Filter>
+    </ClInclude>
+    <ClInclude Include="IK\FABRIKSolver.hpp">
+      <Filter>IK\Solvers</Filter>
+    </ClInclude>
+    <ClInclude Include="IK\CCDSolver.hpp">
+      <Filter>IK\Solvers</Filter>
+    </ClInclude>
+    <ClInclude Include="IK\Jacobian5JointSolver.hpp">
+      <Filter>IK\Solvers</Filter>
+    </ClInclude>
+    <ClInclude Include="IK\IKPose.hpp">
+      <Filter>IK\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="IK\IKMotion.hpp">
+      <Filter>IK\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="IK\IKChain.hpp">
+      <Filter>IK\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="IK\IKJoint.hpp">
+      <Filter>IK\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="IK\IKLink.hpp">
+      <Filter>IK\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="General\UniversalFunction.hpp">
+      <Filter>General</Filter>
+    </ClInclude>
+    <ClInclude Include="IK\IKConstraint.hpp">
+      <Filter>IK\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="IK\CCDConstrainedSolver.hpp">
+      <Filter>IK\Solvers</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Rig.hpp">
+      <Filter>Renderer\Animation3D</Filter>
+    </ClInclude>
+    <ClInclude Include="IK\TwoBoneSolver.hpp">
+      <Filter>IK\Solvers</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Rotator.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
