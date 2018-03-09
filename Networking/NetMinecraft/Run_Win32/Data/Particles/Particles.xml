@@ -1,0 +1,22 @@
+<Particles>
+  <System name="space" oneOffTime="5">
+    <Emitter name="warp">
+      <Base>
+        <Lifetime persistent="true" death="100"/>
+        <Warming enabled="false" time="2" fps="60"/>
+        <Emission max="1000" rate="100"/>
+        <Transform scale=".01 .01 .01" position="0 0 0"/>
+        <Force gravity="0 0 0" radial="-50" tangent="50" />
+      </Base>
+      <Particle>
+        <Lifetime life="5"/>
+        <Speed min="1" max="10"/>
+        <Direction dir="1 0 0"/>
+        <Size min="1 1 1" max="2 2 2"/>
+        <Texture path="White"/>
+        <Color start="255 0 0" end="0 0 255"/>
+      </Particle>
+    </Emitter>
+  </System>
+  
+</Particles>

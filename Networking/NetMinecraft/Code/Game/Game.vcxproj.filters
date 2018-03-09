@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="General">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Gameplay">
+      <UniqueIdentifier>{52d9fd0f-aba4-49af-9cd6-9ab6e9bb8b69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data">
+      <UniqueIdentifier>{5eec2759-12a7-4f4f-9e0e-d883fe07a458}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gameplay\GameStates">
+      <UniqueIdentifier>{65ddffd6-8709-4a9b-a10f-378b8f201709}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gameplay\Frameworks">
+      <UniqueIdentifier>{d1a4f011-8944-4686-9a9f-ad80a0cea7bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gameplay\Actors">
+      <UniqueIdentifier>{bc2d0b2f-48b8-4d58-ba2d-cfb58de35495}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gameplay\Enviorment">
+      <UniqueIdentifier>{6c4e5bad-1ae4-410c-adf1-a8f4494504aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gameplay\Enviorment\Blocks">
+      <UniqueIdentifier>{7459f5b6-9cee-47f6-b70a-5b87d315d899}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main_Win32.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
+    <ClCompile Include="App.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="GameCommon.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera3D.cpp">
+      <Filter>Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="GSMainMenu.cpp">
+      <Filter>Gameplay\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="GSHost.cpp">
+      <Filter>Gameplay\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerInfo.cpp">
+      <Filter>Gameplay\Frameworks</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSession.cpp">
+      <Filter>Gameplay\Frameworks</Filter>
+    </ClCompile>
+    <ClCompile Include="GSJoin.cpp">
+      <Filter>Gameplay\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="GSClient.cpp">
+      <Filter>Gameplay\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>Gameplay\Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>Gameplay\Enviorment</Filter>
+    </ClCompile>
+    <ClCompile Include="BlockDefinition.cpp">
+      <Filter>Gameplay\Enviorment\Blocks</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunk.cpp">
+      <Filter>Gameplay\Enviorment</Filter>
+    </ClCompile>
+    <ClCompile Include="GSHostMenu.cpp">
+      <Filter>Gameplay\GameStates</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="App.hpp">
+      <Filter>General</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.hpp">
+      <Filter>Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="GameCommon.hpp">
+      <Filter>General</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera3D.hpp">
+      <Filter>Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.hpp">
+      <Filter>Gameplay\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="GSMainMenu.hpp">
+      <Filter>Gameplay\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="GSHost.hpp">
+      <Filter>Gameplay\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSession.hpp">
+      <Filter>Gameplay\Frameworks</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerInfo.hpp">
+      <Filter>Gameplay\Frameworks</Filter>
+    </ClInclude>
+    <ClInclude Include="GSJoin.hpp">
+      <Filter>Gameplay\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="GSClient.hpp">
+      <Filter>Gameplay\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.hpp">
+      <Filter>Gameplay\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="World.hpp">
+      <Filter>Gameplay\Enviorment</Filter>
+    </ClInclude>
+    <ClInclude Include="Block.hpp">
+      <Filter>Gameplay\Enviorment\Blocks</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockDefinition.hpp">
+      <Filter>Gameplay\Enviorment\Blocks</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockInfo.hpp">
+      <Filter>Gameplay\Enviorment\Blocks</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunk.hpp">
+      <Filter>Gameplay\Enviorment</Filter>
+    </ClInclude>
+    <ClInclude Include="RaycastResult.hpp">
+      <Filter>Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerModelReference.hpp">
+      <Filter>Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="GSHostMenu.hpp">
+      <Filter>Gameplay\GameStates</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\..\Run_Win32\Data\Shaders\lights.hlsl">
+      <Filter>Data</Filter>
+    </FxCompile>
+    <FxCompile Include="..\..\Run_Win32\Data\Shaders\skinning1.hlsl">
+      <Filter>Data</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Run_Win32\Data\Config\Settings.config">
+      <Filter>Data</Filter>
+    </None>
+    <None Include="..\..\Run_Win32\Data\Shaders\clear.hlsl">
+      <Filter>Data</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\..\Run_Win32\Data\Particles\Particles.xml">
+      <Filter>Data</Filter>
+    </Xml>
+  </ItemGroup>
+</Project>

@@ -23,7 +23,7 @@ void ParticleSystem::Initialize(const std::string& defName, SimpleRenderer* rend
 {
 	ParticleSystemDefinition* define = ParticleSystemDefinition::getDefinition(defName);
 
-	ASSERT_RECOVERABLE(nullptr != define, Stringf("WARNING: Particle Emitter Definition \"%s\" not found!", defName).c_str());
+	ASSERT_RECOVERABLE(nullptr != define, Stringf("WARNING: Particle Emitter Definition \"%s\" not found!", defName.c_str()).c_str());
 	if (nullptr == define)
 	{
 		m_name = defName;

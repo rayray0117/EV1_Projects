@@ -1352,7 +1352,7 @@ void SimpleRenderer::drawText2D(const Vector2& startBottomLeft, const std::strin
 
 	if (!font)
 	{
-		DebuggerPrintf("Couldn't load font: %s", fontName);
+		DebuggerPrintf("Couldn't load font: %s", fontName.c_str());
 		return;
 	}
 
