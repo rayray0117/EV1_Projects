@@ -244,6 +244,8 @@ public:
 	void drawLine(const Vector2& startPos, const Vector2& endPos, const Rgba& startColor, const Rgba& endColor);
 	void drawLine(const Vector3& startPos, const Vector3& endPos, const Rgba& startColor, const Rgba& endColor);
 	void drawLine(const Vector2& startPos, const Vector2& endPos, const Rgba& color);
+	void drawLine(const Vector3& startPos, const Vector3& endPos, const Rgba& color);
+	void drawLineWithDirection(const Vector3& startPos, const Vector3& direction, const Rgba& color, float length = 1.f);
 	void drawLineAndSetLineWidth(const Vector2& startPos, const Vector2& endPos, const Rgba& startColor, const Rgba& endColor, float lineThickness);
 	void drawLineAndSetLineWidth(const Vector3& startPos, const Vector3& endPos, const Rgba& startColor, const Rgba& endColor, float lineThickness);
 	void drawLineStrip(const Vertex2D* vertexes, int numVertexes);
@@ -269,6 +271,9 @@ public:
 	void drawQuads(const Vertex3D* vertexes, int numVertexes);
 	void drawTexturedQuads(const Vertex3D* vertexes, int numVertexes, const Texture2D& texture);
 	void drawTexturedQuads(const Vertex3D* vertexes, int numVertexes);
+
+	void drawDebugTriDirectionalPlane(const Vector3& startPos, const Vector3& direction1, const Vector3& direction2, const Rgba& color, float length = 1.f);
+	void drawTri(const Vector3& startPos, const Vector3& midPos, const Vector3& endPos, const Rgba& color);
 
 	//Bitmap Fonts
 	void DrawText2D(const Vector2& startBottomLeft, const std::string& asciiText, float cellHeight, const Rgba& tint, float cellAspectScale = 1.f, const BitmapFont* font = nullptr);

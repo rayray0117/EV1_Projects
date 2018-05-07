@@ -30,6 +30,11 @@ void Motion::evaluate(Pose* out, float time) const
 	*out = interpolate(get_pose(beginFrame), get_pose(endFrame), fracToEnd);
 }
 
+void Motion::evaluate(Pose *out, uint frame) const
+{
+	*out = get_pose(frame);
+}
+
 Pose Motion::get_pose(uint frame_index) const
 {
 	if (frame_index >= get_frame_count() -1)

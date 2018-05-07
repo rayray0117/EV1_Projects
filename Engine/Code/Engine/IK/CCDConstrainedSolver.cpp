@@ -5,6 +5,7 @@
 #include "Engine/Math/Transform.hpp"
 #include "IKConstraint.hpp"
 //////////////////////////////////////////////////////////////////////////
+/*/
 void CCDConstrainedSolver::Iterate(IKChain* chain, uint &currentEffectorIndex, const Vector3& endPos, uint &currentIterations)
 {
 	//PROFILE_SCOPE("Inner CCD Solve Loop");
@@ -20,9 +21,9 @@ void CCDConstrainedSolver::Iterate(IKChain* chain, uint &currentEffectorIndex, c
 	targetVector = rotationMat.TransformDirection(targetVector);
 
 
-	//*/
+
 	float cosAngle = dotProduct(curVector, targetVector);
-	if (cosAngle < /*1.f*/ 0.9999f) //Jan 5 2017: Found that if the angle is almost equal to one, then the cross product will return a ZERO vector. In my references they used .9999 instead, presumably to avoid this issue. Will copy this method and debate later about whether or not to do more correct checks, such as cosAngle isMostlyEqualTo 1.f or is the crossproduct == to ZERO.
+	if (cosAngle < 0.9999f) //Jan 5 2017: Found that if the angle is almost equal to one, then the cross product will return a ZERO vector. In my references they used .9999 instead, presumably to avoid this issue. Will copy this method and debate later about whether or not to do more correct checks, such as cosAngle isMostlyEqualTo 1.f or is the crossproduct == to ZERO.
 	{
 		Vector3 cross = crossProduct(curVector, targetVector);
 		cross.normalize();
@@ -35,12 +36,9 @@ void CCDConstrainedSolver::Iterate(IKChain* chain, uint &currentEffectorIndex, c
 		chain->getLinksJoint(currentEffectorIndex)->SetRotation_Global(q);
 		CheckConstraint(chain->getLinksJoint(currentEffectorIndex));
 	}
-	//*/
-	//*/
-	//Start from the current effector and work down to the end effector
-	//for (int i = currentEffectorIndex; i >= 0; --i)
+
 	chain->UpdateAllParentTransforms();
-	//*/
+
 	++currentEffectorIndex;
 	if (currentEffectorIndex > chain->getNumberOfLinks() - 1) //Greater than or equal to because if it actually is equal to the size it'll be out of bounds in the vector.
 	{
@@ -60,3 +58,4 @@ void CCDConstrainedSolver::CheckConstraint(IKJoint* jointToCheck)
 	Vector3 clampedEuler = constraint.AngleClamp(euler);	
 	qrotation.SetFromEuler(clampedEuler);
 }
+//*/

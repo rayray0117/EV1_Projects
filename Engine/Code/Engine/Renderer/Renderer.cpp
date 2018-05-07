@@ -662,8 +662,8 @@ Texture* Renderer::CreateTextureFromData(const std::string& name, unsigned char*
 
 void Renderer::CreateBuiltInTextures()
 {
-	unsigned char plainWhiteTexel[3] = { 255, 255, 255 };
-	m_plainWhiteTexture = CreateTextureFromData("White", plainWhiteTexel, 1, 1, 3);
+	unsigned char plainWhiteTexel[4] = { 255, 255, 255, 255 };
+	m_plainWhiteTexture = CreateTextureFromData("White", plainWhiteTexel, 1, 1, 4);
 }
 
 //-----------------------------------------------------------------------------------------------

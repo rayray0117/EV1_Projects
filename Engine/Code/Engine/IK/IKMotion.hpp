@@ -24,12 +24,21 @@ public:
 	uint getFrameCount() const { return m_ikPoses.size(); }
 
 	void Evaluate(IKRig* rig, float time) const;
+	void Evaluate(IKRig* rig, uint frame) const;
+
+	void Eval(const IKPose &currentPose, IKRig* rig) const;
+
 	IKPose getIKPose(float time) const;
 	IKPose getIKPose(uint frame_index) const;
+
+	uint getFrameIndexNumber(uint frame_index) const;
 
 public:
 	std::string m_name;
 	float m_framerate = 1.f;
 	std::vector<IKPose> m_ikPoses;
 	EPlaybackMode m_mode = PLAY_LOOP;
+	float m_duration;
+private:
+	mutable float timeSinceReset = 0.f;
 };

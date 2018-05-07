@@ -182,6 +182,7 @@ public:
 	IntVector2 GetScreenCenter() const;
 	IntVector2 GetCursorWindowPos(HWND window) const;
 	void ShowMouseCursor(bool isNowVisable);
+	void SetMouseToCenterScreen();
 
 	// Queries
 	bool isKeyDown(unsigned char keyIndex) const;

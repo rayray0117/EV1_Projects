@@ -65,7 +65,7 @@ bool GetBitangent(Vector3 *out, Matrix4 const &transform, FbxMesh *mesh, int pol
 // Skeleton Functions
 void ImportSkeleton(Skeleton *out, FbxNode *node, FbxSkeleton *root_bone, FbxSkeleton *parent_bone, FbxPose *pose);
 FbxPose* GetBindPose(FbxScene *scene);
-char const* GetBoneName(FbxSkeleton const *skel);
+std::string GetBoneName(FbxSkeleton const *skel);
 // Motion Functions
 float GetNativeFramefrate(FbxScene const *scene);
 bool FbxImportMotion(Motion *motion, Skeleton const *skeleton, FbxScene *scene, FbxAnimStack *anim, float framerate);
@@ -1060,7 +1060,7 @@ void ImportSkeleton(Skeleton *out,  // skeleton I'm loading into
             }
 
             // Add a joint.
-            out->addJoint(GetBoneName(skel), (parent_bone != nullptr) ? GetBoneName(parent_bone) : nullptr, bone_transform);
+            out->addJoint(GetBoneName(skel), (parent_bone != nullptr) ? GetBoneName(parent_bone) : "", bone_transform);
 
             // set this as the next nodes parent, and continue down the chain
             parent_bone = skel;
@@ -1077,13 +1077,14 @@ void ImportSkeleton(Skeleton *out,  // skeleton I'm loading into
 
 //------------------------------------------------------------------------
 // Just a helper - checks for null - but otherwise gets the node name
-static char const* GetNodeName(FbxNode const *node)
+static std::string GetNodeName(FbxNode const *node)
 {
     if (nullptr == node) {
         return "";
     }
     else {
-        return node->GetName();
+		std::string result = node->GetName();
+        return result;
     }
 }
 
@@ -1091,20 +1092,22 @@ static char const* GetNodeName(FbxNode const *node)
 //------------------------------------------------------------------------
 // Get the name to use for this bone (ideally, use the node, but if the bone
 // doesn't exist, use the skeleton attributes name)
-char const* GetBoneName(FbxSkeleton const *skel)
+std::string GetBoneName(FbxSkeleton const *skel)
 {
     if (nullptr == skel) {
-        return nullptr;
+        return "";
     }
 
     std::string node_name = GetNodeName(skel->GetNode());
     if (!node_name.empty())
     {
-        return skel->GetNode()->GetName();
+		std::string result = skel->GetNode()->GetName();
+		return result;
     }
     else 
     {
-        return skel->GetName();
+		std::string result = skel->GetName();
+		return result;
     }
 }
 ////////////////////////////////////////////////////////////////////////// Load Motion //////////////////////////////////////////////////////////////////////////

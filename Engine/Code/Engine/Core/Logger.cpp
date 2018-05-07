@@ -297,7 +297,7 @@ void LogFlushTest(const char* msg)
 #include "Engine/Core/Command.hpp"
 #include "Engine/Core/Console.hpp"
 #include "Engine/Core/EngineConfig.hpp"
-
+/*/
 COMMAND(log_thread_test, "")
 {
 	std::vector<std::string> buffer;
@@ -320,7 +320,7 @@ COMMAND(log_flush, "flushes out the log")
 {
 	Log::Flush();
 }
-
+//*/
 ////////////////////////////////////////////////////////////////////////// COMMAND LOCAL FUNCTIONS //////////////////////////////////////////////////////////////////////////
 void Printf_ThreadSafeTest(int thread_count, int line_count)
 {
@@ -358,7 +358,7 @@ void Printf_ThreadSafeTest(int thread_count, int line_count)
 	Thread::Sleep(100);
 	g_theConsole->addMessage("PrintF Thread Safe Test Finished");
 }
-
+/*/
 COMMAND(log_enable_all_tags, "")
 {
 	Log::EnableAllTags();
@@ -390,3 +390,4 @@ COMMAND(log_copy, "Param: Filename")
 {
 	Job::Run(JOB_LOGGING, LogCopyTest, arguments);
 }
+//*/

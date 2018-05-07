@@ -400,6 +400,20 @@ const Quaternion Quaternion::operator*(const Quaternion& rightHandSide)
 }
 
 
+const bool Quaternion::operator!=(const Quaternion& right)const
+{
+	if (x == right.x)
+		return false;
+	if (y == right.y)
+		return false;
+	if (z == right.z)
+		return false;
+	if (w == right.w)
+		return false;
+
+	return true;
+}
+
 Vector3 Quaternion::getRotationAxis() const
 {
 	// Ensure we never try to sqrt a neg number
@@ -467,6 +481,54 @@ Quaternion Quaternion::CreateFromAxisAndAngleInRads(const Vector3& axis, float a
 	return result;
 }
 
+Quaternion Quaternion::SolveAim(const Vector3& currentPosition, const Vector3& targetPosition, const Vector3& aimVector)
+{
+	Vector3 toTarget = targetPosition - currentPosition;
+	toTarget.normalize();
+
+	return FindBetweenNormals(aimVector, toTarget);
+}
+
+Quaternion FindBetween_Helper(const Vector3& A, const Vector3& B, float NormAB)
+{
+	float W = NormAB + dotProduct(A, B);
+	Quaternion Result;
+
+	if (W >= 1e-6f * NormAB)
+	{
+		Vector3 axis = crossProduct(A, B);
+		Result = Quaternion::CreateFromAxisAndAngleInRads(axis, W);
+	}
+	else
+	{
+		// A and B point in opposite directions
+		W = 0.f;
+		Result.w = W;
+			if (abs(A.x) > abs(A.y))
+			{
+				Result.x = -A.z;
+				Result.y = 0.f;
+				Result.z = A.x;
+			}
+			else
+			{
+				Result.x = 0.f;
+				Result.y = -A.z;
+				Result.z = A.y;
+			}
+	}
+
+	Result.Normalize();
+	return Result;
+}
+
+
+Quaternion Quaternion::FindBetweenNormals(const Vector3& A, const Vector3& B)
+{
+	const float NormAB = 1.f;
+	return FindBetween_Helper(A, B, NormAB);
+}
+//////////////////////////////////////////////////////////////////////////
 const Quaternion interpolate(const Quaternion& start, const Quaternion& end, float fractionToEnd)
 {
 	Quaternion result = slerp_notNormalized(start, end, fractionToEnd);
@@ -516,19 +578,6 @@ const Quaternion slerp_notNormalized(const Quaternion& start, const Quaternion& 
 	return Result;
 }
 
-COMMAND(quat_euler_test, "angle vaules you want for each direction.")
-{
-	std::vector<std::string> args;
-	splitArgs(arguments, args);
-	Vector3 euler(stof(args[0]), stof(args[1]), stof(args[2]));
-	
-	Quaternion qtest;
-	qtest.SetFromRotator(Rotator::MakeFromEuler(euler));
-	
-	Vector3 result = qtest.getEulerAngles();
-	CONSOLE->addMessage(vectorToString(result));
-}
-
 //Local Test Function
 void EulerQuatCheck(const Vector3& euler, uint attempt = 0)
 {
@@ -536,9 +585,13 @@ void EulerQuatCheck(const Vector3& euler, uint attempt = 0)
 	
 	Quaternion qtest;
 	qtest.SetFromEuler(euler);
-	Vector3 qeuler = qtest.getEulerAngles();
-	Matrix4 qMat = Matrix4::CreateFromEuler(qeuler);
+	//Vector3 qeuler = qtest.getEulerAngles();
+	//Matrix4 qMat = Matrix4::CreateFromEuler(qeuler);
 
+	Vector3 matRes = originalMat.TransformPosition(Vector3::YAXIS);
+	Vector3 qRes = qtest.RotateVector(Vector3::YAXIS);
+	ASSERT_OR_DIE(matRes.isMostlyEqualTo(qRes), C_STRF("Matrix: %s, Quat = %s", vectorToString(matRes).c_str(), vectorToString(qRes).c_str()));
+	/*/
 	float dotI = dotProduct(originalMat.getIBasis(), qMat.getIBasis());
 	ASSERT_OR_DIE(dotI >= .99f, C_STRF("Euler: %s, did not match at IBasis. Attempts = %i", vectorToString(euler).c_str(), attempt));
 
@@ -547,6 +600,7 @@ void EulerQuatCheck(const Vector3& euler, uint attempt = 0)
 	
 	float dotK = dotProduct(originalMat.getKBasis(), qMat.getKBasis());
 	ASSERT_OR_DIE(dotK >= .99f, C_STRF("Euler: %s, did not match at KBasis. Attempts = %i", vectorToString(euler).c_str(), attempt));
+	//*/
 }
 
 Vector3 getRandomEuler()
@@ -579,4 +633,21 @@ COMMAND(quat_euler_test_auto, "Automatic test for converting Eulers to Quats")
 		original = getRandomEuler();
 		EulerQuatCheck(original, i);
 	}
+}
+
+COMMAND(quat_from_axis_angle, "Send give a axis vector and angle. Returns the quat and axis angle back.")
+{
+	std::vector<std::string> args;
+	splitArgs(arguments, args);
+	Vector3 axis(stof(args[0]), stof(args[1]), stof(args[2]));
+
+	float angle = stof(args[3]);
+
+	Quaternion q(axis, angle);
+	CONSOLE->addMessage("Quat: " + Stringf("x = %f, y = %f,z = %f,w = %f", q.x,q.y,q.z,q.w));
+
+	Vector3 newAxis;
+	float newAngle;
+	q.getAxisAndAngle(newAxis, newAngle);
+	CONSOLE->addMessage("axis = " + vectorToString(newAxis) + Stringf(" angle = %f", newAngle));
 }

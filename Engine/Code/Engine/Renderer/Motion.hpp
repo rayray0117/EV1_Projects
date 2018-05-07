@@ -30,6 +30,7 @@ public:
 	// This will fill out a pose with the evaluated pose at time
 	// left as an excercise...
 	void evaluate(Pose *out, float time) const;
+	void evaluate(Pose *out, uint frame) const;
 	Pose get_pose(uint frame_index) const;
 	Pose* get_pose(uint frame_index);
 

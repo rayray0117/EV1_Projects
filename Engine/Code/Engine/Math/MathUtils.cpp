@@ -152,6 +152,11 @@ float interpolate(float start, float end, float fractionToEnd)
 }
 
 
+bool areMostlyEqual(float a, float b, float tolerance /*= 0.001f*/)
+{
+	return fabsf(a - b) <= tolerance;
+}
+
 float UE4::FloatMod(float X, float Y)
 {
 	if (fabsf(Y) <= 1.e-8f)

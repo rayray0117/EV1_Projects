@@ -83,6 +83,9 @@
     <Filter Include="Networking">
       <UniqueIdentifier>{8e2d185b-e81d-4459-b736-3aff0c7cd9ce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{b79de1ff-c6a3-4ffc-af6a-4f43e6fd48e6}</UniqueIdentifier>
+    </Filter>
     <Filter Include="IK">
       <UniqueIdentifier>{683af60d-52a6-4853-a29a-faa0ed1312cc}</UniqueIdentifier>
     </Filter>
@@ -397,6 +400,9 @@
     <ClCompile Include="Core\Job.cpp">
       <Filter>Core\Threads Events and Memory</Filter>
     </ClCompile>
+    <ClCompile Include="UI\UIElement.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
     <ClCompile Include="Renderer\Sprite.cpp">
       <Filter>Renderer\Sprites</Filter>
     </ClCompile>
@@ -444,6 +450,9 @@
     </ClCompile>
     <ClCompile Include="Math\Rotator.cpp">
       <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="IK\FABRIKConstrainedSolver.cpp">
+      <Filter>IK\Solvers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -720,9 +729,6 @@
     <ClInclude Include="Core\StringUtils.hpp">
       <Filter>Core\Squirrel Tools</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Time.hpp">
-      <Filter>Core\Squirrel Tools</Filter>
-    </ClInclude>
     <ClInclude Include="Core\Event.hpp">
       <Filter>Core\Threads Events and Memory</Filter>
     </ClInclude>
@@ -819,6 +825,12 @@
     <ClInclude Include="Core\Job.hpp">
       <Filter>Core\Threads Events and Memory</Filter>
     </ClInclude>
+    <ClInclude Include="UI\UIElement.hpp">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UIMetric.hpp">
+      <Filter>UI</Filter>
+    </ClInclude>
     <ClInclude Include="Renderer\Sprite.hpp">
       <Filter>Renderer\Sprites</Filter>
     </ClInclude>
@@ -869,6 +881,12 @@
     </ClInclude>
     <ClInclude Include="Math\Rotator.hpp">
       <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="IK\FABRIKConstrainedSolver.hpp">
+      <Filter>IK\Solvers</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Time.hpp">
+      <Filter>Core\Squirrel Tools</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

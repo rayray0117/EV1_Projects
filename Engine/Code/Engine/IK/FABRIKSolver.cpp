@@ -9,10 +9,11 @@
 //////////////////////////////////////////////////////////////////////////
 void FABRIKSolver::Solve(IKChain* chain, const Vector3& goal)
 {
-	CollectGlobals(chain);
+	Initialize(chain);
+
 
 	PROFILE_SCOPE_FUNCTION();
-	float beginTime = (float)GetCurrentTimeSeconds();
+	//float beginTime = (float)GetCurrentTimeSeconds();
 	uint currentIterations = 0;
 
 	if (isCloseEnough(chain, goal)) //Idea from CALIKO FARBIK. Don't try to solve if already close enough to the goal. 
@@ -20,11 +21,11 @@ void FABRIKSolver::Solve(IKChain* chain, const Vector3& goal)
 		return;
 	}	
 	
-	else if (isGoalOutOfReach(chain, goal))
-	{
-		StraightenOutToGoal(chain, goal);
-		//return;
-	}
+	//else if (isGoalOutOfReach(chain, goal))
+	//{
+	//	StraightenOutToGoal(chain, goal);
+	//	//return;
+	//}
 	else
 	{
 
@@ -39,15 +40,20 @@ void FABRIKSolver::Solve(IKChain* chain, const Vector3& goal)
 
 	ApplyTransforms(chain);
 
-	float endTime = (float)GetCurrentTimeSeconds();
-	std::string str = Stringf("FABRIK, %s, %i, %i, %f, %f, %s, %f \n",
-		chain->m_name.c_str(), currentIterations, maxIterations, (endTime - beginTime)*1000*1000, IK_TOLERANCE,
-		vectorToString(goal).c_str(), calcDistance(goal, chain->getEndEffectorPosition_Global()));
-	UF->CallF("IKData", (void*)str.c_str());
+	//float endTime = (float)GetCurrentTimeSeconds();
+	//std::string str = Stringf("FABRIK, %s, %i, %i, %f, %f, %s, %f \n",
+	//	chain->m_name.c_str(), currentIterations, maxIterations, (endTime - beginTime)*1000*1000, IK_TOLERANCE,
+	//	vectorToString(goal).c_str(), calcDistance(goal, chain->getEndEffectorPosition_Global()));
+	//UF->CallF("IKData", (void*)str.c_str());
 
 
-	DebuggerPrintf("Chain: %s - FABRIK: Num iterations = %i, Max Iterations = %i \n", chain->m_name.c_str(), currentIterations, maxIterations);
+	//DebuggerPrintf("Chain: %s - FABRIK: Num iterations = %i, Max Iterations = %i \n", chain->m_name.c_str(), currentIterations, maxIterations);
 	return;
+}
+
+void FABRIKSolver::Initialize(IKChain* chain)
+{
+	CollectGlobals(chain);
 }
 
 void FABRIKSolver::CollectGlobals(IKChain* chain)
@@ -69,6 +75,8 @@ void FABRIKSolver::ApplyTransforms(IKChain* chain)
 	}
 	chain->UpdateAllParentTransforms();
 	chain->m_links[0]->SetJointsPosition_Global(m_globalPositions[0]);
+
+	//PositionsWereEnforced(chain);
 }
 
 ////////////////////////////////////////////////////////////////////////// PRIVATE //////////////////////////////////////////////////////////////////////////
@@ -119,16 +127,11 @@ void FABRIKSolver::Backward(IKChain* chain, const Vector3& goal)
 	for (uint i = 1; i < chain->getNumberOfLinks() - 1; ++i) // Do size - 1 because we don't need to move the root in the basic implementation.
 	{
 		Vector3 position = m_globalPositions[i];
-		float dist = calcDistance(position, m_globalPositions[i-1]);
-		//Vector3 position = chain->getLinksPosition_Global(i);
-		//float dist = calcDistance(position, chain->getLinksPosition_Global(i - 1));
+		float dist = calcDistance(m_globalPositions[i - 1], position);
 		float ratio = chain->getLinksLength(i) / dist;
-
 		Vector3 nextJointsNewPosition = (1 - ratio) * m_globalPositions[i - 1] + ratio * position; //p_i+1 = (1 - l_i)p_i + l_i * t
 		m_globalPositions[i]=(nextJointsNewPosition);
-		//Vector3 nextJointsNewPosition = (1 - ratio) * chain->getLinksPosition_Global(i - 1) + ratio * position; //p_i+1 = (1 - l_i)p_i + l_i * t
-		//chain->getLinksJoint(i)->SetPosition_Global(nextJointsNewPosition);
-		//chain->UpdateAllParentTransforms();
+		//ASSERT_RECOVERABLE(areMostlyEqual(calcDistance(position, m_globalPositions[i - 1]),chain->getLinksLength(i), 1.f), C_STRF("Error: bone did not maintain length during Forawrd step. calc = %f, real = %f", calcDistance(position, m_globalPositions[i - 1]), chain->getLinksLength(i)));
 	}
 }
 
@@ -142,14 +145,18 @@ void FABRIKSolver::Forward(IKChain* chain, const Vector3& /*goal*/)
 	{
 		Vector3 position = m_globalPositions[i];
 		float dist = calcDistance(position, m_globalPositions[i - 1]);
-		//Vector3 position = chain->getLinksPosition_Global(i);
-		//float dist = calcDistance(position, chain->getLinksPosition_Global(i - 1));
 		float ratio = chain->getLinksLength(i-1) / dist;
-
 		Vector3 nextJointsNewPosition = (1 - ratio)*position + ratio*m_globalPositions[i - 1]; //p_i+1 = (1 - l_i)p_i + l_i * t
 		m_globalPositions[i-1]=(nextJointsNewPosition);
-		//Vector3 nextJointsNewPosition = (1 - ratio)*position + ratio*chain->getLinksPosition_Global(i - 1); //p_i+1 = (1 - l_i)p_i + l_i * t
-		//chain->getLinksJoint(i - 1)->SetPosition_Global(nextJointsNewPosition);
-		//chain->UpdateAllParentTransforms();
+
+		//ASSERT_RECOVERABLE(areMostlyEqual(calcDistance(position, m_globalPositions[i - 1]), chain->getLinksLength(i-1), 1.f), C_STRF("Error: bone did not maintain length. calc = %f, real = %f", calcDistance(position, m_globalPositions[i - 1]), chain->getLinksLength(i-1)));
+	}
+}
+
+void FABRIKSolver::PositionsWereEnforced(IKChain* chain)
+{
+	for (uint i =  0; i < chain->getNumberOfLinks(); ++i)
+	{
+		ASSERT_OR_DIE(m_globalPositions[i].isMostlyEqualTo(chain->getLinksPosition_Global(i), 1.f), C_STRF("Joint# %i was not maintained. Expected: %s, Actual: %s", i,vectorToString(m_globalPositions[i]).c_str(), vectorToString(chain->getLinksPosition_Global(i)).c_str()));
 	}
 }

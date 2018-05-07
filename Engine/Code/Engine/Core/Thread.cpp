@@ -101,6 +101,7 @@ void WriteJunkDataToFile(const char* filename, size_t byte_count)
 }
 
 ////////////////////////////////////////////////////////////////////////// COMMANDS //////////////////////////////////////////////////////////////////////////
+/*/
 COMMAND(thread_run_demo, "Runs the thread test demo. Optional Params: filePath, byteSize")
 {
 	std::vector<std::string> buffer;
@@ -112,4 +113,4 @@ COMMAND(thread_run_demo, "Runs the thread test demo. Optional Params: filePath, 
 		Thread::Demo(buffer[0].c_str(), 200 MiB);
 	else
 		Thread::Demo("Data/ThreadTest.dat", 200 MiB);
-}
+}//*/

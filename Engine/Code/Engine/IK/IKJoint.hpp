@@ -13,6 +13,7 @@ public:
 	IKJoint() {}
 	IKJoint(const Joint& copy) : name(copy.name), parentName(copy.parentName)/*, global_transform(copy.global_transform)*/ {}
 	IKJoint(const Joint& copy, Skeleton* o_skeleton);
+	~IKJoint();
 
 	//void SetLocalFromParent(const Matrix4& parent_global);
 	//void SetGlobalFromParent(const Matrix4& parent_global);
@@ -25,6 +26,7 @@ public:
 	const SQT getGlobalTransform() const;
 	const Vector3 getPosition_Global() const;
 	Quaternion getRotation_Global() const;
+	void Reset() { local_transform = bind_local; }
 public:
 	std::string name;
 	std::string parentName;
@@ -34,4 +36,5 @@ public:
 	SQT parents_global_transform; //This should only be used on roots!
 private:
 	//Matrix4 global_transform; //This should not be used outside of the functions already set!
+	SQT bind_local;
 };

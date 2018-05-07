@@ -1,0 +1,8 @@
+#pragma once
+#include "Engine/Math/Vector2.hpp"
+//////////////////////////////////////////////////////////////////////////
+struct UIMetric
+{
+	Vector2 ratio; //Percent
+	Vector2 unit; //Offset
+};

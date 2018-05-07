@@ -10,7 +10,7 @@ class Quaternion
 public:
 	Quaternion(const Matrix4& matrix);
 	Quaternion(const Vector3& axis, float angleDegrees);
-	Quaternion(){};
+	Quaternion():x(0), y(0), z(0), w(1){}
 	~Quaternion() {}
 	
 	Vector3 RotateVector(const Vector3& vector) const;
@@ -25,9 +25,11 @@ public:
 	void Normalize();
 	float calcLength() const;
 	float calcLengthSquared() const;
+	Quaternion getInverse() const { Quaternion q = *this; q.Normalize(); q.x = -q.x, q.y = -q.y, q.z = -q.z; }
 
 	void operator*=(const Quaternion& rightHandSide);
 	const Quaternion operator*(const Quaternion& rightHandSide);
+	const bool operator!=(const Quaternion& right) const;
 
 	friend const Quaternion interpolate(const Quaternion& start, const Quaternion& end, float fractionToEnd);
 	friend const Quaternion slerp_notNormalized(const Quaternion& start, const Quaternion& end, float fractionToEnd);
@@ -39,13 +41,15 @@ public:
 	static Quaternion CreateRotateObjectToInertial(const Vector3& euler);
 	static Quaternion CreateRotateInertialToObject(const Vector3& euler);
 	static Quaternion CreateFromAxisAndAngleInRads(const Vector3& euler, float angleRadians);
+	static Quaternion SolveAim(const Vector3& currentPosition, const Vector3& targetPosition, const Vector3& aimVector);
+	static Quaternion FindBetweenNormals(const Vector3& a, const Vector3& b);//From UE4
+
 public:
 	float x;
 	float y; 
 	float z;
 	float w;
 };
-
 //////////////////////////////////////////////////////////////////////////
 // Inline
 inline Quaternion::Quaternion(const Vector3& axis, float angleDegrees)

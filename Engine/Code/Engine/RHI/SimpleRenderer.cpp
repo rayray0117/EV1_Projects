@@ -974,6 +974,16 @@ void SimpleRenderer::drawLine(const Vector3& startPos, const Vector3& endPos, co
 	drawVBO3D(m_genericVBO, vertexArray.size(), RHIEnum::PRIMATIVE_LINE);
 }
 
+void SimpleRenderer::drawLine(const Vector3& startPos, const Vector3& endPos, const Rgba& color)
+{
+	drawLine(startPos, endPos, color, color);
+}
+
+void SimpleRenderer::drawLineWithDirection(const Vector3& startPos, const Vector3& direction, const Rgba& color, float length /*= 1.f*/)
+{
+	drawLine(startPos, startPos + direction * length, color);
+}
+
 void SimpleRenderer::drawLineAndSetLineWidth(const Vector2& startPos, const Vector2& endPos, const Rgba& startColor, const Rgba& endColor, float lineThickness)
 {
 	SetLineWidth(lineThickness);
@@ -1245,6 +1255,30 @@ void SimpleRenderer::drawTexturedQuads(const Vertex3D* vertexes, int numVertexes
 	drawQuads(vertexes, numVertexes);
 }
 
+void SimpleRenderer::drawDebugTriDirectionalPlane(const Vector3& startPos, const Vector3& direction1, const Vector3& direction2, const Rgba& color, float length /*= 1.f*/)
+{
+	std::vector<Vertex3D> vertexArray;
+	vertexArray.push_back(Vertex3D(startPos, color));
+	vertexArray.push_back(Vertex3D(startPos + direction1 * length, color));
+	vertexArray.push_back(Vertex3D(startPos + direction2 * length, color));
+
+	BindTexture(m_plainWhiteTexture);
+	SetVBO3DData(m_genericVBO, vertexArray.data(), vertexArray.size(), RHIEnum::USAGE_DYNAMIC_DRAW);
+	drawVBO3D(m_genericVBO, vertexArray.size(), RHIEnum::PRIMATIVE_TRIANGLE_FAN);
+}
+
+void SimpleRenderer::drawTri(const Vector3& startPos, const Vector3& midPos, const Vector3& endPos, const Rgba& color)
+{
+	std::vector<Vertex3D> vertexArray;
+	vertexArray.push_back(Vertex3D(startPos, color));
+	vertexArray.push_back(Vertex3D(midPos, color));
+	vertexArray.push_back(Vertex3D(endPos, color));
+
+	BindTexture(m_plainWhiteTexture);
+	SetVBO3DData(m_genericVBO, vertexArray.data(), vertexArray.size(), RHIEnum::USAGE_DYNAMIC_DRAW);
+	drawVBO3D(m_genericVBO, vertexArray.size(), RHIEnum::PRIMATIVE_TRIANGLE_FAN);
+}
+
 void SimpleRenderer::DrawText2D(const Vector2& startBottomLeft, const std::string& asciiText, float cellHeight, const Rgba& tint, float cellAspectScale /*= 1.f*/, const BitmapFont* font /*= nullptr*/)
 {
 	//PROFILE_SCOPE_FUNCTION();
@@ -1352,7 +1386,7 @@ void SimpleRenderer::drawText2D(const Vector2& startBottomLeft, const std::strin
 
 	if (!font)
 	{
-		DebuggerPrintf("Couldn't load font: %s", fontName.c_str());
+		DebuggerPrintf("Couldn't load font: %s", fontName);
 		return;
 	}
 

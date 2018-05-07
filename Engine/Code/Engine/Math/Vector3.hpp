@@ -16,6 +16,7 @@ public:
 	static const Vector3 YAXIS;
 	static const Vector3 ZAXIS;
 
+	static float getSignedAngleBetweenDegs(Vector3 relativeHingeReferenceAxis, Vector3 thisBoneInnerToOuterUV, Vector3 relativeHingeRotationAxis);
 public:
 	Vector3();
 	Vector3(const Vector3& copy);
@@ -68,6 +69,11 @@ public:
 	friend const Vector3 getDirection(const Vector3& from, const Vector3& to);
 
 	friend const Vector3 getRandomVector3InRange(const Vector3& min, const Vector3& max);
+	static float getAngleBetweenDegrees(const Vector3& a, const Vector3& b);
+	static Vector3 getAngleLimitedUnitVectorDegrees(const Vector3& a, const Vector3& b, float limit);
+	Vector3 projectOntoPlane(const Vector3& planeNormal) const;
+	static Vector3 rotateAboutAxisDegrees(const Vector3& source, float angleDegrees, const Vector3& rotationalAxis);
+	void ToDirectionAndLength(Vector3& EndEffectorToTargetDir, float& EndEffectToTargetSize);
 };
 
 //////////////////////////////////////////////////////////////////////////

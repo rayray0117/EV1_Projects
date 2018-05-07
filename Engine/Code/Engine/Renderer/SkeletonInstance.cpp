@@ -29,6 +29,23 @@ SQT SkeletonInstance::get_joint_global_transform(uint joint_idx) const
 	}
 }
 
+SQT SkeletonInstance::get_joint_global_transform(const std::string& jointName) const
+{
+	uint jointIndex = mo_skeleton->getJointIndex(jointName);
+	return get_joint_global_transform(jointIndex);
+}
+
+SQT SkeletonInstance::get_joint_local_transform(uint joint_idx) const
+{
+	return m_pose.m_transforms[joint_idx];
+}
+
+SQT SkeletonInstance::get_joint_local_transform(const std::string& jointName) const
+{
+	uint jointIndex = mo_skeleton->getJointIndex(jointName);
+	return get_joint_local_transform(jointIndex);
+}
+
 int SkeletonInstance::get_joint_parent(uint joint_idx) const
 {
 	if (!mo_skeleton)
@@ -39,7 +56,13 @@ int SkeletonInstance::get_joint_parent(uint joint_idx) const
 	if (currentJoint.parentName.empty())
 		return -1;
 
-	return mo_skeleton->getJointIndex(currentJoint.parentName.c_str());
+	return mo_skeleton->getJointIndex(currentJoint.parentName);
+}
+
+int SkeletonInstance::get_joint_parent(const std::string& jointName) const
+{
+	uint jointIndex = mo_skeleton->getJointIndex(jointName);
+	return get_joint_parent(jointIndex);
 }
 
 void SkeletonInstance::SetStructedBuffer(StructuredBuffer* buffer)
@@ -51,4 +74,15 @@ void SkeletonInstance::SetStructedBuffer(StructuredBuffer* buffer)
 void SkeletonInstance::DeleteStructuredBuffer()
 {
 	SAFE_DELETE(m_skinTransfroms);
+}
+
+void SkeletonInstance::SetJointsTransform(const std::string& jointName, const SQT& local_transform)
+{
+	uint jointIndex = mo_skeleton->getJointIndex(jointName);
+	SetJointsTransform(jointIndex, local_transform);
+}
+
+void SkeletonInstance::SetJointsTransform(uint jointIndex, const SQT& local_transform)
+{
+	m_pose.m_transforms[jointIndex] = local_transform;
 }

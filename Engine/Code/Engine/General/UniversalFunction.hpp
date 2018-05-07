@@ -11,6 +11,7 @@ public:
 // 	~UniversalFunctionDatabase();
 	
 	void Add(const std::string& name, universal_func_cb func);
+	void Remove(const std::string& name);
 	void CallF(const std::string& name, void*);
 
 private:

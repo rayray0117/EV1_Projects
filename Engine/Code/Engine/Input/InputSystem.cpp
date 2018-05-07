@@ -124,6 +124,12 @@ void InputSystem::ShowMouseCursor(bool isNowVisable)
 	}
 }
 
+void InputSystem::SetMouseToCenterScreen()
+{
+	IntVector2 screenCenter = GetScreenCenter();
+	SetCursorScreenPos(screenCenter);
+}
+
 bool InputSystem::isKeyDown(unsigned char keyIndex) const
 {
 	return m_keyStates[keyIndex].m_isDown;

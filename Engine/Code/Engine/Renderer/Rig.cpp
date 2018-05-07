@@ -11,7 +11,7 @@
 #include "Engine/Core/StringUtils.hpp"
 #include "Motion.hpp"
 //////////////////////////////////////////////////////////////////////////
-FileBinaryStream g_stream;
+
 //////////////////////////////////////////////////////////////////////////
 Rig::Rig()
 {
@@ -38,6 +38,7 @@ void Rig::LoadSkeletonMesh(const std::string& path)
 void Rig::LoadMesh_FBX(const std::string& fbxPath)
 {
 #if defined(TOOLS_BUILD) 
+	FileBinaryStream g_stream;
 	MeshBuilder* mb = new MeshBuilder();
 	FbxLoadMesh(mb, fbxPath.c_str(), m_skeleton);
 	SAFE_DELETE(m_mesh);
@@ -70,6 +71,7 @@ void Rig::LoadMesh_FBX(const std::string& fbxPath)
 
 void Rig::LoadMesh_Asset(const std::string& path)
 {
+	FileBinaryStream g_stream;
 	if (!g_stream.open_for_read(std::string(path + ".mesh").c_str()))
 	{
 		LoadMesh_FBX(path + ".fbx");
@@ -97,6 +99,7 @@ void Rig::LoadMesh_Asset(const std::string& path)
 void Rig::LoadSkeleton_FBX(const std::string& fbxPath)
 {
 #if defined(TOOLS_BUILD)
+	FileBinaryStream g_stream;
 	m_skeleton->clear();
 	FbxLoadSkeleton(m_skeleton, fbxPath.c_str());
 
@@ -119,6 +122,7 @@ void Rig::LoadSkeleton_FBX(const std::string& fbxPath)
 
 void Rig::LoadSkeleton_Asset(const std::string& path)
 {
+	FileBinaryStream g_stream;
 	if (!g_stream.open_for_read(std::string(path + ".skel").c_str()))
 	{
 		LoadSkeleton_FBX(path + ".fbx");
@@ -135,6 +139,7 @@ void Rig::LoadSkeleton_Asset(const std::string& path)
 Motion* Rig::LoadMotion_FBX(const std::string& fbxPath, uint framerate)
 {
 #if defined(TOOLS_BUILD)
+	FileBinaryStream g_stream;
 	Motion* motion = new Motion();
 	FbxLoadMotion(motion, m_skeleton, fbxPath.c_str(), framerate);
 
@@ -158,6 +163,7 @@ Motion* Rig::LoadMotion_FBX(const std::string& fbxPath, uint framerate)
 
 Motion* Rig::LoadMotion_Asset(const std::string& path, uint framerate)
 {
+	FileBinaryStream g_stream;
 	if (!g_stream.open_for_read(std::string(path + ".motion").c_str()))
 	{
 		return LoadMotion_FBX(path + ".fbx", framerate);

@@ -19,7 +19,7 @@
 const float a = sqrtf(14.0f) / 8.0f;
 const float b = 1.0f / 8.0f;
 const float c = 7.0f / 8.0f;
-Vector3 g_rotationalAxis = /*Vector3::XAXIS;*/ Vector3(b, a, c);
+Vector3 g_rotationalAxis = Vector3::YAXIS;// Vector3(b, a, c);
 //////////////////////////////////////////////////////////////////////////
 IKChain::IKChain(bool forceRoot)
 	: m_forceRoot(forceRoot)
@@ -133,45 +133,70 @@ float IKChain::getLinksLength(uint index) const
 	return m_links[index]->m_length;
 }
 
-Vector3 IKChain::getLinksRotationAxis(uint index) const
+Vector3 IKChain::getLinksRotationAxis(uint index, const Vector3& goal) const
 {
-	/*/
 	IKJoint* joint = getLinksJoint(index);
 	if (joint->m_constraint != nullptr)
 	{
-		Quaternion rotation(joint->getGlobalTransform().rotation);
-		Vector3 rotAxis = rotation.RotateVector(joint->m_constraint->m_rotationalAxis);
-		return rotAxis;
+		Vector3 rotAxis = joint->m_constraint->m_rotationalAxis;
+		if (rotAxis != Vector3(-32203.f, -32203.f, -32203.f))
+		{
+			rotAxis = joint->parents_global_transform.getAsMatrix().TransformDirection(rotAxis);
+			return rotAxis;
+		}
 	}
-	return g_rotationalAxis;
-	/*
-	Quaternion rotation(joint->getGlobalTransform().rotation);
-	Vector3 out_axis;
-	float out_angle;
-	rotation.getAxisAndAngle(out_axis, out_angle);
-	return out_axis;
-	//*/
-	return g_rotationalAxis;
+	//No local rotation axis was set so we can pick any!
+	Vector3 currentJointPos = getLinksPosition_Global(index);
+	Vector3 dirToEnd = getEndEffectorPosition_Global() - currentJointPos;
+	Vector3 dirToGoal = goal - currentJointPos;
+	Vector3 crossResult = crossProduct(dirToEnd, dirToGoal).getNormalizedVector();
+	return crossResult;
 }
 
 void IKChain::getLinksRotationAxisAndAngle(uint index, Vector3& out_axis, float& out_angle) const
 {
-	/*/
 	IKJoint* joint = getLinksJoint(index);
-	if (joint->m_constraint != nullptr)
-	{
-		Quaternion rotation(joint->getGlobalTransform().rotation);
-		Vector3 rotAxis = rotation.RotateVector(joint->m_constraint->m_rotationalAxis);
-		out_axis = rotAxis;
-		out_angle = 0;
-		return;
-	}
+	//getLinksInitialAxes(index, out_axis, out_angle);
+	//return;
+	//*/
 	Quaternion rotation(joint->getGlobalTransform().rotation);
 	rotation.getAxisAndAngle(out_axis, out_angle);
-	//*/
-	out_axis = getLinksRotationAxis(index);
-	out_angle = 0;
+	//out_axis = g_rotationalAxis;
+	//out_angle = 0.f;
 	//out_axis.getNormalizedVector();
+}
+
+void IKChain::getLinksInitialAxes(uint index, Vector3 &out_axis, float &out_angle) const
+{
+	IKJoint* joint = getLinksJoint(index);
+	joint->local_transform.rotation.getAxisAndAngle(out_axis, out_angle);
+	
+	//*/
+	if (joint->m_constraint != nullptr)
+	{
+		Vector3 rotAxis = joint->m_constraint->m_rotationalAxis;
+		
+		
+		out_axis = rotAxis;
+		//out_angle = 30;
+		//out_axis.getNormalizedVector();
+		return;
+	}
+
+	//out_axis = g_rotationalAxis;
+	//out_angle = 0.f;
+}
+
+void IKChain::ResetToInitialAxes()
+{
+	for (uint i = 0; i < getNumberOfLinks(); ++i)
+	{
+		Vector3 axis; float angle;
+		getLinksInitialAxes(i, axis, angle);
+		
+		IKJoint* current = getLinksJoint(i);
+		current->local_transform.rotation = Quaternion(axis, 1);
+	}
 }
 
 IKJoint* IKChain::getJoint(const std::string& name) const
@@ -197,6 +222,19 @@ Vector3 IKChain::getMidJointDirection() const
 		return midJoint->m_constraint->m_direction;
 	}
 	return Vector3::YAXIS;
+}
+
+Vector3 IKChain::getComponentSpacePosition(uint rootBasis, uint desiredJoint) const
+{
+	if (rootBasis == desiredJoint)
+		return Vector3::ZERO;
+
+	Vector3 recursiveResult = getLinksJoint(rootBasis-1)->local_transform.position + getComponentSpacePosition(rootBasis - 1, desiredJoint);
+	Matrix4 rotR = getLinksJoint(rootBasis)->local_transform.rotation.getAsMatrix();
+	recursiveResult = rotR.TransformPosition(recursiveResult);
+
+	//SQT rootTrans = getLinksJoint(rootBasis)->local_transform;
+	return recursiveResult;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -248,14 +286,14 @@ void IKChain::DebugRender() const
 			g_mainEngineRenderer->drawLine(getLinksPosition_Global(i), m_links[i]->m_root->getPosition_Global(), Rgba::YELLOW, Rgba::BLACK);
 		else
 		{
-			g_mainEngineRenderer->drawLine(getLinksPosition_Global(i), m_links[i]->m_joint.parents_global_transform.position, Rgba::MAGENTA, Rgba::OLIVE);
+			//g_mainEngineRenderer->drawLine(getLinksPosition_Global(i), m_links[i]->m_joint.parents_global_transform.position, Rgba::MAGENTA, Rgba::OLIVE);
 		}
 	}
 	
 	Mesh* mesh = g_mainEngineRenderer->CreateAndGetMeshStatic(&mb);
 	g_mainEngineRenderer->drawMesh(mesh);
 	SAFE_DELETE(mesh);
-	//*/
+	/*/
 	g_mainEngineRenderer->ClearDepth();
 	mb.clear();
 	mb.begin(RHIEnum::PRIMATIVE_LINE_STRIP, false);
@@ -286,6 +324,16 @@ void IKChain::DebugRender() const
 	//*/
 	SAFE_DELETE(mesh);
 }
+
+void IKChain::Reset()
+{
+	for (uint i = 0; i < getNumberOfLinks(); i++)
+	{
+		getLinksJoint(i)->Reset();
+	}
+	UpdateAllParentTransforms();
+}
+
 //////////////////////////////////////////////////////////////////////////
 COMMAND(ik_set_rotationAxis, "Type a Vector3 with spaces x y z")
 {

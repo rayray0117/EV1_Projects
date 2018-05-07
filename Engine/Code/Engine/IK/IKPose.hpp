@@ -2,6 +2,9 @@
 #include "Engine/Core/EngineBase.hpp"
 #include "Engine/Math/Transform.hpp"
 #include <vector>
+#include <map>
+#include "../Core/StringUtils.hpp"
+#include "../Core/ErrorWarningAssert.hpp"
 //////////////////////////////////////////////////////////////////////////
 // IKChainPose is a pose for one specific chain.
 //////////////////////////////////////////////////////////////////////////
@@ -43,9 +46,23 @@ public:
 	
 
 	uint getNumChainPoses() const { return m_chainPoses.size(); }
+	
+	bool findTransform(const std::string name, SQT& out_trans) const
+	{
+		auto found = m_FK.find(name);
+		if (found != m_FK.end())
+		{
+			out_trans = found->second;
+			return true;
+		}
+
+		return false;
+	}
+
+
 public:
 	std::vector<IKChainPose> m_chainPoses;
-
+	std::map<std::string, SQT> m_FK;
 public:
 	friend const IKPose interpolate(const IKPose& start, const IKPose& end, float fractionToEnd)
 	{
@@ -56,8 +73,19 @@ public:
 		{
 			result.m_chainPoses[i] = interpolate(start.m_chainPoses[i], end.m_chainPoses[i], fractionToEnd);
 		}
+		for (auto current : start.m_FK)
+		{
+			result.m_FK[current.first] = interpolate(start.getTransform(current.first), end.getTransform(current.first), fractionToEnd);
+		}
 
 		return result;
 	}
 
+private:
+	//Do not call unless you know for sure the fk is in their.
+	SQT getTransform(const std::string name) const
+	{
+		auto found = m_FK.find(name);
+		return found->second;
+	}
 };

@@ -3,6 +3,7 @@
 #include "../Core/ParseUtils.hpp"
 #include "../Core/StringUtils.hpp"
 #include "../Core/ErrorWarningAssert.hpp"
+#include "../Math/MathUtils.hpp"
 //////////////////////////////////////////////////////////////////////////
 void IKLink::SetRoot(IKJoint* root)
 {
@@ -16,33 +17,15 @@ void IKLink::SetRoot(IKJoint* root)
 
 SQT IKLink::getLocalTransformForCCD() const
 {
-	//PROFILE_SCOPE_FUNCTION();
-	//Matrix4 localTransform = m_joint.local_transform.getAsMatrix();
-	/*/
-	Matrix4 localTransform = m_joint.global_transform; //Possible Dirty fix?
-	if (m_root != nullptr)
-	{
-		//Matrix4 inverseParentTransform = m_root->global_transform.getInverse();
-		//localTransform = m_joint.global_transform.getTransformed(inverseParentTransform);
-		localTransform = m_joint.local_transform.getAsMatrix();
-	}
-	//*/
 	return m_joint.local_transform;
 }
 
 void IKLink::SetFromLocalTransformForCCD(const SQT& /*myLocalTransform*/)
 {
-	//PROFILE_SCOPE_FUNCTION();
-	//m_joint.local_transform.setFromMatrix(myLocalTransform);
-	//*/
 	if (m_root != nullptr)
 	{
 		m_joint.parents_global_transform = m_root->getGlobalTransform();
 		return;
-	}
-	else
-	{
-		//m_joint.global_transform = myLocalTransform; //Possible Dirty fix?
 	}
 }
 
@@ -58,48 +41,88 @@ void IKLink::SetJointsPosition_Global(const Vector3& global_position)
 	if (m_root == nullptr) return;
 
 	//m_joint.SetPosition_Global(global_position);
-	
-	//*/
-	if (m_root == nullptr)
-	{
-		m_joint.SetPosition_Global(global_position);
-		return;
-	}
-
+	/*/
 	SQT parentGlobalTrans = m_root->getGlobalTransform();
-	m_joint.parents_global_transform = parentGlobalTrans;
-
-	//*
-	Vector3 currentGlobalPos = m_joint.getGlobalTransform().position;
 	Vector3 parentGlobalPos = parentGlobalTrans.position;
-
-	Vector3 dirParentToCurrent = getDirection(parentGlobalPos, currentGlobalPos);
+	//Vector3 dirParentToCurrent = getDirection(parentGlobalPos, currentGlobalPos);
 	Vector3 dirParentToDesired = getDirection(parentGlobalPos, global_position);
-
 	Matrix4 rotationMat = parentGlobalTrans.getInverse().rotation.getAsMatrix();
-	dirParentToCurrent = rotationMat.TransformDirection(dirParentToCurrent);
+	//dirParentToCurrent = rotationMat.TransformDirection(dirParentToCurrent);
 	dirParentToDesired = rotationMat.TransformDirection(dirParentToDesired);
+	Matrix4 rotMatirx = Matrix4::CreateLookAtMatrix(parentGlobalTrans.position, (parentGlobalTrans.position + dirParentToDesired), rotationMat.TransformDirection(Vector3::YAXIS));
+	//Matrix4 rotMatirx = Matrix4::CreateRotationFromDirection(dirParentToDesired, rotationMat.TransformDirection(Vector3::ZAXIS));
+	parentGlobalTrans.rotation = Quaternion(rotMatirx);
+	m_root->SetRotation_Global(parentGlobalTrans.rotation);
+	m_joint.parents_global_transform = m_root->getGlobalTransform();
+	/*/
 
-	float cosAngle = dotProduct(dirParentToCurrent, dirParentToDesired);
-	if (cosAngle < 0.9999f)
-	{
-		Vector3 rotationalAxis = crossProduct(dirParentToCurrent, dirParentToDesired);
-		rotationalAxis.normalize();
+	//*/
+	//{//SolveAim Attempt
+	//	SQT parentGlobalTrans = m_root->getGlobalTransform();
+	//	m_joint.parents_global_transform = parentGlobalTrans;
+	//
+	//	Vector3 currentGlobalPos = m_joint.getGlobalTransform().position;
+	//	Vector3 parentGlobalPos = parentGlobalTrans.position;
+	//
+	//	Vector3 dirParentToCurrent = getDirection(parentGlobalPos, currentGlobalPos);
+	//	Matrix4 toRootSpaceTransform = parentGlobalTrans.getAsMatrix().getInverse(); //Matrix for Root's axis
+	//	dirParentToCurrent = toRootSpaceTransform.TransformDirection(dirParentToCurrent);
+	//	Vector3 currentLocalPos = toRootSpaceTransform.TransformPosition(currentGlobalPos);
+	//	Vector3 parentLocalPos = toRootSpaceTransform.TransformPosition(parentGlobalPos);
+	//	Vector3 localTargetPos = toRootSpaceTransform.TransformPosition(global_position);
+	//	Quaternion detlaRotate = Quaternion::SolveAim(currentLocalPos, localTargetPos, dirParentToCurrent);
+	//	m_root->SetRotation_Global(parentGlobalTrans.rotation * detlaRotate);
+	//	m_joint.parents_global_transform = m_root->getGlobalTransform();
+	//}
+	//*/
 
-		float turnAngle =  EV1::RAD2DEG * acosf(cosAngle);
+	//*/
+	{//Default Working solution
+		SQT parentGlobalTrans = m_root->getGlobalTransform();
+		m_joint.parents_global_transform = parentGlobalTrans;
 
-		Quaternion rotateBy(rotationalAxis, turnAngle);
-		rotateBy.Normalize();
-		parentGlobalTrans.rotation = parentGlobalTrans.rotation * rotateBy;
-		m_root->SetRotation_Global(parentGlobalTrans.rotation);
+		//*
+		Vector3 currentGlobalPos = m_joint.getGlobalTransform().position;
+		Vector3 parentGlobalPos = parentGlobalTrans.position;
 
+		Vector3 dirParentToCurrent = getDirection(parentGlobalPos, currentGlobalPos);
+		Vector3 dirParentToDesired = getDirection(parentGlobalPos, global_position);
 
-		m_joint.parents_global_transform = m_root->getGlobalTransform();
-		
-// 		ASSERT_RECOVERABLE(global_position.isMostlyEqualTo(m_joint.getPosition_Global()),
-// 			C_STRF("global transform check failed result:  joint = %s, desired = %s.", 
-// 				vectorToString(m_joint.getPosition_Global()).c_str(),
-// 				vectorToString(global_position).c_str()));
+		Matrix4 rotationMat = parentGlobalTrans.getInverse().rotation.getAsMatrix();
+		dirParentToCurrent = rotationMat.TransformDirection(dirParentToCurrent);
+		dirParentToDesired = rotationMat.TransformDirection(dirParentToDesired);
+
+		float cosAngle = dotProduct(dirParentToCurrent, dirParentToDesired);
+		if (cosAngle < 0.9999f)
+		{
+			Vector3 rotationalAxis = crossProduct(dirParentToCurrent, dirParentToDesired);
+			rotationalAxis.normalize();
+
+			float turnAngle = EV1::RAD2DEG * acosf(cosAngle);
+
+			//Perform Rotation
+			Quaternion rotateBy(rotationalAxis, turnAngle);
+			rotateBy.Normalize();
+			parentGlobalTrans.rotation = m_root->local_transform.rotation * rotateBy;
+			//parentGlobalTrans.rotation.Normalize();
+			m_root->SetRotation(parentGlobalTrans.rotation);
+
+			/*/
+			{//Clamp the X Axis rotation for FABRIK since it likes to spin for some reason when you do this stuff.
+				Quaternion& qrotation = m_root->local_transform.rotation;
+				Vector3 euler = qrotation.getEulerAngles();
+			
+				Vector3 clampedEuler = euler;
+				if(m_root->parentName == "root") //HACK fix for UE4 guys pelvis
+					clampedEuler.z = 0.f;
+				else
+					clampedEuler.x = 0.f;
+				m_root->local_transform.rotation.SetFromEuler(clampedEuler);
+			}
+			//*/
+
+			m_joint.parents_global_transform = m_root->getGlobalTransform();
+		}
 	}
 	//*/
 }

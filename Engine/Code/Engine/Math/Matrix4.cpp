@@ -395,33 +395,82 @@ Matrix4 Matrix4::CreateRotation(const Vector3& axis, float degrees)
 	return result;
 }
 
-Matrix4 Matrix4::CreateRotationFromDirection(const Vector3& direction, const Vector3& /*up*/)
+Matrix4 Matrix4::CreateRotationFromDirection(const Vector3& direction, const Vector3& up)
 {
-	Vector3 xaxis = crossProduct(Vector3::XAXIS, direction);
-	//xaxis.normalize();
+	Vector3 xaxis = direction;
+	xaxis.normalize();
 
-	Vector3 yaxis = crossProduct(direction, xaxis);
-	//yaxis.normalize();
+	Vector3 yaxis = crossProduct(up, xaxis);
+	yaxis.normalize();
+
+	Vector3 zaxis = crossProduct(xaxis, yaxis);
 
 	Vector3 column1, column2, column3;
 	column1.x = xaxis.x;
 	column1.y = yaxis.x;
-	column1.z = direction.x;
+	column1.z = zaxis.x;
 
 	column2.x = xaxis.y;
 	column2.y = yaxis.y;
-	column2.z = direction.y;
+	column2.z = zaxis.y;
 
 	column3.x = xaxis.z;
 	column3.y = yaxis.z;
-	column3.z = direction.z;
+	column3.z = zaxis.z;
 
 	Matrix4 result;
 	result.setIBasis(column1);
 	result.setJBasis(column2);
 	result.setKBasis(column3);
-	result.values[15] = 0;
+	//result.values[15] = 0;
 	return result;
+}
+
+Matrix4 Matrix4::CreateLookAtMatrix(const Vector3& viewerPosition, const Vector3& lookAtPos, const Vector3& up /*= Vector3::YAXIS*/)
+{
+	Matrix4 viewersMatrix;
+	Vector3 translation(viewerPosition);
+	//viewersMatrix.setTranslation(translation);
+
+	Vector3 iBasis;
+	Vector3 jBasis;
+	Vector3 kBasis;
+
+
+	kBasis = Vector3(viewerPosition - lookAtPos);
+	kBasis.normalize();
+
+	iBasis = crossProduct(up, kBasis);
+	iBasis.normalize();
+	jBasis = crossProduct(kBasis, iBasis);
+
+	Matrix4 rotateCamera(iBasis, jBasis, kBasis);
+	rotateCamera.tranpose();
+	viewersMatrix.setTranslation(-translation);
+	viewersMatrix = viewersMatrix.getTransformed(rotateCamera);
+
+	return viewersMatrix;
+}
+
+Matrix4 Matrix4::CreateLookAtMatrixX(const Vector3& viewerPosition, const Vector3& lookAtPos, const Vector3& up /*= Vector3::YAXIS*/)
+{
+	Matrix4 viewersMatrix;
+	Vector3 translation(viewerPosition);
+	//viewersMatrix.setTranslation(translation);
+
+	Vector3 zaxis = Vector3(lookAtPos - viewerPosition);
+	zaxis.normalize();
+
+	Vector3 xaxis = crossProduct(up, zaxis);
+	xaxis.normalize();
+	Vector3 yaxis = crossProduct(zaxis, xaxis);
+
+	Matrix4 rotateCamera(xaxis, yaxis, zaxis);
+	//rotateCamera.tranpose();
+	viewersMatrix.setTranslation(Vector3(dotProduct(-translation, xaxis), dotProduct(-translation, yaxis), dotProduct(-translation, zaxis)));
+	viewersMatrix = viewersMatrix.getTransformed(rotateCamera);
+
+	return viewersMatrix;
 }
 
 COMMAND(mat_dir_tests, "")

@@ -3,6 +3,8 @@
 #include "Engine/Math/IntVector3.hpp"
 #include "Engine/Math/Vector2.hpp"
 #include "Engine/Core/ErrorWarningAssert.hpp"
+#include "Matrix4.hpp"
+#include "Quaternion.hpp"
 //////////////////////////////////////////////////////////////////////////
 const Vector3 Vector3::ZERO(0.f, 0.f, 0.f);
 const Vector3 Vector3::ONE(1.f, 1.f, 1.f);
@@ -113,6 +115,66 @@ bool Vector3::isMostlyEqualTo(const Vector3& comparison, float epsilon /*= 0.001
 	float diffZ = z - comparison.z;
 	return (((diffX < epsilon) && (-diffX < epsilon)) && ((diffY < epsilon) && (-diffY < epsilon)) && ((diffZ < epsilon) && (-diffZ < epsilon)));
 }
+
+float Vector3::getAngleBetweenDegrees(const Vector3& a, const Vector3& b)
+{
+	float angle = acos(dotProduct(a, b));
+	return angle*EV1::RAD2DEG;
+}
+
+Vector3 Vector3::getAngleLimitedUnitVectorDegrees(const Vector3& vectorToLimit, const Vector3& baseline, float limit)
+{
+	float angleBetween = Vector3::getAngleBetweenDegrees(vectorToLimit, baseline);
+
+	if (angleBetween > limit)
+	{
+		Vector3 correctionAxis = crossProduct(baseline.getNormalizedVector(), vectorToLimit.getNormalizedVector()).getNormalizedVector();
+		return rotateAboutAxisDegrees(baseline, limit, correctionAxis).getNormalizedVector();
+	}
+	else
+	{
+		return vectorToLimit.getNormalizedVector();
+	}
+}
+
+Vector3 Vector3::projectOntoPlane(const Vector3& planeNormal) const
+{
+	ASSERT_OR_DIE(planeNormal.calcLengthSquared() > 0.f, "Plane normal cannot be a zero vector.");
+
+	Vector3 b = this->getNormalizedVector();
+	Vector3 n = planeNormal.getNormalizedVector();
+	Vector3 result = b - (n * dotProduct(b, planeNormal));
+	result.normalize();
+	return result;
+}
+
+Vector3 Vector3::rotateAboutAxisDegrees(const Vector3& vectorToRotate, float angleDegrees, const Vector3& rotationalAxis)
+{
+	return Quaternion(rotationalAxis, angleDegrees).getAsMatrix().TransformDirection(vectorToRotate.getNormalizedVector());
+}
+
+void Vector3::ToDirectionAndLength(Vector3& OutDir, float& OutLength)
+{
+	OutLength = calcLength();
+	if (OutLength > (1.e-8f))
+	{
+		float OneOverLength = 1.0f / OutLength;
+		OutDir = Vector3(y*OneOverLength, y*OneOverLength,
+			z*OneOverLength);
+	}
+	else
+	{
+		OutDir = Vector3::ZERO;
+	}
+}
+
+float Vector3::getSignedAngleBetweenDegs(Vector3 refVector, Vector3 otherVector, Vector3 normalVector)
+{
+	float usigned = getAngleBetweenDegrees(refVector, otherVector);
+	float signVal = sign(dotProduct(crossProduct(refVector, otherVector), normalVector));
+	return usigned * signVal;
+}
+
 //////////////////////////////////////////////////////////////////////////
 // "friend" functions
 float calcDistance(const Vector3& posA, const Vector3& posB)

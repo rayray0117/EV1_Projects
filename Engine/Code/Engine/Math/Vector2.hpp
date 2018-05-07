@@ -80,6 +80,9 @@ public:
 
 	// Bonus Stuff for me
 	void rotate180Degrees();
+
+	static Vector2 Xaxis(float x) { return Vector2(x, 0); }
+	static Vector2 Yaxis(float y) { return Vector2(0, y); }
 };
 
 float dotProduct(const Vector2& a, const Vector2& b);

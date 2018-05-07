@@ -5,6 +5,11 @@ void UniversalFunctionDatabase::Add(const std::string& name, universal_func_cb f
 	m_database[name] = func;
 }
 
+void UniversalFunctionDatabase::Remove(const std::string& name)
+{
+	m_database.erase(name);
+}
+
 void UniversalFunctionDatabase::CallF(const std::string& name, void* input)
 {
 	universal_func_cb funcToCall;

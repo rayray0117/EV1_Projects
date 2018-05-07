@@ -29,10 +29,16 @@ public:
 	Vector3  getLinksPosition_Global(uint index) const;
 	float    getLinksLength(uint index) const;
 	//Matrix4  getLinksGlobalTransform(uint index) const;
-	Vector3  getLinksRotationAxis(uint index) const;
+	Vector3 getLinksRotationAxis(uint index, const Vector3& goal) const;
 	void	 getLinksRotationAxisAndAngle(uint index, Vector3& out_axis, float& out_angle) const;
+
+	void getLinksInitialAxes(uint index, Vector3 &out_axis, float &out_angle) const;
+	void ResetToInitialAxes();
+
 	IKJoint* getJoint(const std::string& name) const;
 	Vector3	 getMidJointDirection() const; //Only used for TwoBoneIK, so assume 1 is the midjoint.
+
+	Vector3 getComponentSpacePosition(uint rootBasis, uint desiredJoint) const;
 
 	float getTotalLength() const;
 	uint  getNumberOfLinks() const;
@@ -42,6 +48,7 @@ public:
 
 	void DebugRender() const;
 	
+	void Reset();
 public:
 	std::string m_name; //Give it a name so debugging and stuff is easier.
 	std::vector<IKLink*> m_links; //end effector at front, root in back.

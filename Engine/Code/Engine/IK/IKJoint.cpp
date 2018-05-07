@@ -1,4 +1,5 @@
 #include "Engine/IK/IKJoint.hpp"
+#include "Engine/IK/IKConstraint.hpp"
 //////////////////////////////////////////////////////////////////////////
 IKJoint::IKJoint(const Joint& copy, Skeleton* o_skeleton)
 	: IKJoint(copy)
@@ -9,6 +10,12 @@ IKJoint::IKJoint(const Joint& copy, Skeleton* o_skeleton)
 	SQT globalTrans;
 	globalTrans.setFromMatrix(copy.global_transform);
 	local_transform = globalTrans.getCombined(inverseParentTransform);
+	bind_local = local_transform;
+}
+
+IKJoint::~IKJoint()
+{
+	SAFE_DELETE(m_constraint);
 }
 
 void IKJoint::SetGlobalTransform(const SQT& global, const SQT& parentGlobal)

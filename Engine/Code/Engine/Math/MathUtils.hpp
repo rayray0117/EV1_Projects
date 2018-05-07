@@ -68,6 +68,15 @@ float rangeMapFloat(float inputValue, float inputMin, float inputMax, float outp
 
 void turnToward(float& currentDegrees, float goalDegrees, float maxTurnDegrees);
 float calcShortestAngularDistance(float startDegress, float endDegrees);
+
+FORCEINLINE float sign(float value)
+{
+	if (value >= 0)
+	{
+		return 1.f;
+	}
+	return -1.f;
+}
 //-
 // Bonus Stuff for me
 bool isPercentChance(float);
@@ -146,6 +155,8 @@ inline uint to1DMatixValues(uint row, uint column)
 {
 	return (row * 4) + column;
 }
+
+bool areMostlyEqual(float a, float b, float tolerance = 0.001f);
 //////////////////////////////////////////////////////////////////////////
 // Inlines
 inline float convertRadiansToDegrees(float radians)

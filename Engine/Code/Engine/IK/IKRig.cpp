@@ -5,6 +5,8 @@
 #include "ThirdParty/XMLParser/XMLParser.hpp"
 #include "Engine/Core/XMLParseHelper.h"
 #include "../Core/StringUtils.hpp"
+#include "FABRIKConstrainedSolver.hpp"
+#include "Jacobian5JointSolver.hpp"
 //////////////////////////////////////////////////////////////////////////
 IKRig::IKRig()
 {
@@ -13,7 +15,10 @@ IKRig::IKRig()
 
 IKRig::~IKRig()
 {
-
+	for (uint i = 0; i < m_chains.size(); i++)
+	{
+		SAFE_DELETE(m_chains[i]);
+	}
 }
 //////////////////////////////////////////////////////////////////////////
 void IKRig::DebugRender() const
@@ -100,6 +105,54 @@ IKChain* IKRig::CreateAndAddChain(const XMLNode& node)
 	return chain;
 }
 
+void IKRig::AddFkChain(const std::string& root, const std::string& end)
+{
+	ASSERT_OR_DIE(mo_skeleton != nullptr, "ERROR: There is no skeleton!");
+	uint rootIndex = mo_skeleton->getJointIndex(root.c_str());
+	uint endIndex = mo_skeleton->getJointIndex(end.c_str());
+	AddFkChain(rootIndex, endIndex);
+}
+
+
+void IKRig::AddFkChain(uint root, uint end)
+{
+	ASSERT_OR_DIE(mo_skeleton != nullptr, "ERROR: There is no skeleton!");
+	ASSERT_OR_DIE(root != end, "ERROR: Trying to make a chain with only one joint!");
+	ASSERT_OR_DIE(mo_skeleton->m_joints.size() > end, "ERROR: end joint is out of skeleton's bounds!");
+
+	uint currentJointIndex = end;
+	do
+	{
+		ASSERT_OR_DIE(currentJointIndex != INVALID_JOINT_INDEX, "ERROR: Root joint was not found! Root needs to be a parent of the End Effector inorder to make a chain!");
+
+		m_fkJoints.push_back(mo_skeleton->m_joints[currentJointIndex].name);
+		uint parentIndex = mo_skeleton->getJointParentIndex(currentJointIndex);
+		currentJointIndex = parentIndex;
+	} while (currentJointIndex != root);
+	m_fkJoints.push_back(mo_skeleton->m_joints[currentJointIndex].name);
+}
+
+void IKRig::ResetChains()
+{
+	for (IKChain* chain : m_chains)
+	{
+		chain->Reset();
+	}
+}
+
+void IKRig::TimedResetChains()
+{
+	if (!m_resetsAfterAnimLoop) return;
+
+	for (IKChain* chain : m_chains)
+	{
+		//Jacobian5JointSolver* wasAJacobian = dynamic_cast<Jacobian5JointSolver*>(chain->m_solver);
+		//if (wasAJacobian != nullptr)
+		//	continue; //JacobianSolver doesn't handle resets well.
+		chain->Reset();
+	}
+}
+
 IKChain* IKRig::getChain(const std::string& name)
 {
 	//PROFILE_SCOPE_FUNCTION();
@@ -111,13 +164,20 @@ IKChain* IKRig::getChain(const std::string& name)
 
 	return nullptr;
 }
-
+//////////////////////////////////////////////////////////////////////////
 void IKRig::SolveChainToGoal(const std::string& chainName, const Vector3& goal)
 {
 	PROFILE_SCOPE_FUNCTION();
 	IKChain* chain = getChain(chainName);
 	if (chain == nullptr)
 		return;
+
+	FABRIKConstrainedSolver* isFabCon = dynamic_cast<FABRIKConstrainedSolver*>(chain->m_solver);
+	if (isFabCon != nullptr)
+	{
+		isFabCon->m_rigCaller = this;
+	}
+
 	chain->SolveToGoal(goal);
 }
 
@@ -138,7 +198,12 @@ void IKRig::SolveChainToGoal(const std::string& chainName, const Vector3& goal, 
 	{
 		chain->SetRootsParentTransform_Global(mo_skeletonInst->get_joint_global_transform(mo_skeleton->getJointIndex(joint->parentName.c_str())));
 	}
-	
+	chain->UpdateAllParentTransforms();
+	FABRIKConstrainedSolver* isFabCon = dynamic_cast<FABRIKConstrainedSolver*>(chain->m_solver);
+	if (isFabCon != nullptr)
+	{
+		isFabCon->m_rigCaller = this;
+	}
 
 	chain->SolveToGoal(goal);
 }
@@ -162,30 +227,7 @@ void IKRig::ForceChainsPose(IKChain* chain)
 		//Forcing the Pose of joint[i] to what was determined by the solver. Don't move this to a separate function yet, as it may need to be changed to account for a moving root once animation is added later!
 		//Begin
 		IKJoint& currentJoint = currentLink->m_joint;
-		uint jointsIndex = mo_skeleton->getJointIndex(currentJoint.name.c_str());
-		/*/
-		SQT jointLocalTrans;
-		if (currentLink == chain->getRootLink())
-		{
-			int parentIndex = mo_skeletonInst->get_joint_parent(jointsIndex);
-			if (parentIndex != -1)
-			{
-				SQT parent_world_sqt = mo_skeletonInst->get_joint_global_transform(parentIndex);
-				//Matrix4 parent_world = parent_world_sqt.getAsMatrix();
-				jointLocalTrans = currentJoint.getGlobalTransform().getCombined(parent_world_sqt.getInverse());
-			}
-			else
-			{
-				jointLocalTrans = currentJoint.getGlobalTransform();
-			}
-		}
-		else
-		{
-			jointLocalTrans = currentLink->getLocalTransformForCCD();
-		}
-		//*/
-		//mo_skeletonInst->m_pose.m_transforms[jointsIndex] = jointLocalTrans;
-		mo_skeletonInst->m_pose.m_transforms[jointsIndex] = currentJoint.local_transform;
+		mo_skeletonInst->SetJointsTransform(currentJoint.name, currentJoint.local_transform);
 		//End
 	}
 }
@@ -205,3 +247,11 @@ void IKRig::ApplyMotion(const IKMotion* motion, float time)
 	if(nullptr != motion)
 		motion->Evaluate(this, time);
 }
+
+void IKRig::ApplyMotion(const IKMotion* motion, uint frame)
+{
+	PROFILE_SCOPE_FUNCTION();
+	if (nullptr != motion)
+		motion->Evaluate(this, frame);
+}
+

@@ -23,8 +23,8 @@ public:
 	float* 	 GetAsFloatArray();		// Used when the Matrix4 is not const
 
 	void makeIdentity();
-	void concatenateTransform(Matrix4 other);
-	const Matrix4 getTransformed(Matrix4 other) const; 
+	void concatenateTransform(Matrix4 rightHandSide);
+	const Matrix4 getTransformed(Matrix4 rightHandSide) const;
 	//To get my world "World = My Local * Parent's World"  TODO
 	//To get my local "Local = My World * Parent's Local Inverse" this.getTransformed(parent_world.getInverse); this is in global transform
 
@@ -60,12 +60,27 @@ public:
 	static Matrix4 CreateRotationRadiansAboutZ(float radians); // a.k.a. CreateRotationRadians2D
 	static Matrix4 CreateRotation(const Vector3& axis, float degrees);
 	static Matrix4 CreateRotationFromDirection(const Vector3& direction, const Vector3& up = Vector3::YAXIS);
+	static Matrix4 CreateLookAtMatrix(const Vector3& viewerPosition, const Vector3& lookAtPos, const Vector3& up = Vector3::YAXIS); //Experimental
+	static Matrix4 CreateLookAtMatrixX(const Vector3& viewerPosition, const Vector3& lookAtPos, const Vector3& up = Vector3::YAXIS); //Experimental
 
 	static Matrix4 CreateOrthoProjection(const Vector2& bottomLeft, const Vector2& topRight, float nearZ, float farZ);
 	static Matrix4 CreatePerspectiveProjection(float fovVerticalDegrees,float aspectRatio, float nearZ, float farZ);
 	static Matrix4 CreateOtherHandBasisFlip();
 	static Matrix4 CreateFromEuler(const Vector3& euler);
 
+
+	static Matrix4 CalculateChangeOfBasisMatrix(const Matrix4& input_basis, const Matrix4& output_basis) 
+	{
+		return input_basis * output_basis.getInverse();
+	}
+	static Vector3 ChangeOfBasisPosition(const Vector3& input_world_vector, const Matrix4& output_basis)
+	{
+		return output_basis.getInverse().TransformPosition(input_world_vector);
+	}
+	static Vector3 ChangeOfBasisDirection(const Vector3& input_world_vector, const Matrix4& output_basis)
+	{
+		return output_basis.getInverse().TransformDirection(input_world_vector);
+	}
 
 	void operator=(const Matrix4& rightHandSide);
 	const Matrix4 operator*(const Matrix4& rightHandSide) const;

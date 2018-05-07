@@ -5,9 +5,85 @@
 #include "../Core/ErrorWarningAssert.hpp"
 #include "../Core/StringUtils.hpp"
 #include "../Core/ParseUtils.hpp"
+#include "IKLink.hpp"
 //////////////////////////////////////////////////////////////////////////
 void TwoBoneSolver::Solve(IKChain* chain, const Vector3& goal)
 {
+	Vector3 RootPos = chain->getRootPosition_Global();
+	Vector3 JointPos = chain->getLinksPosition_Global(1);
+	// This is our reach goal.
+	Vector3 DesiredPos = goal;
+	Vector3 DesiredDelta = DesiredPos - RootPos;
+	float DesiredLength = DesiredDelta.calcLength();
+	float LowerLimbLength = chain->getLinksLength(0);
+	float UpperLimbLength = chain->getLinksLength(1);
+	// Find lengths of upper and lower limb in the ref skeleton.
+	// Use actual sizes instead of ref skeleton, so we take into account translation and scaling from other bone controllers.
+	float MaxLimbLength = LowerLimbLength + UpperLimbLength;
+
+	// Check to handle case where DesiredPos is the same as RootPos.
+	Vector3	DesiredDir;
+	if (DesiredLength < (float)(1.e-4f))
+	{
+		DesiredLength = (float)(1.e-4f);
+		DesiredDir = Vector3(1, 0, 0);
+	}
+	else
+	{
+		DesiredDir = DesiredDelta.getNormalizedVector();
+	}
+
+
+	Vector3 JointBendDir = chain->getMidJointDirection();
+
+
+	//UE_LOG(LogAnimationCore, Log, TEXT("UpperLimb : %0.2f, LowerLimb : %0.2f, MaxLimb : %0.2f"), UpperLimbLength, LowerLimbLength, MaxLimbLength);
+	Vector3 OutEndPos = DesiredPos;
+	Vector3 OutJointPos = JointPos;
+
+	// If we are trying to reach a goal beyond the length of the limb, clamp it to something solvable and extend limb fully.
+	if (DesiredLength >= MaxLimbLength)
+	{
+		OutEndPos = RootPos + (MaxLimbLength * DesiredDir);
+		OutJointPos = RootPos + (UpperLimbLength * DesiredDir);
+	}
+	else
+	{
+		// So we have a triangle we know the side lengths of. We can work out the angle between DesiredDir and the direction of the upper limb
+		// using the sin rule:
+		const float TwoAB = 2.f * UpperLimbLength * DesiredLength;
+
+		const float CosAngle = (TwoAB != 0.f) ? ((UpperLimbLength*UpperLimbLength) + (DesiredLength*DesiredLength) - (LowerLimbLength*LowerLimbLength)) / TwoAB : 0.f;
+
+		// If CosAngle is less than 0, the upper arm actually points the opposite way to DesiredDir, so we handle that.
+		const bool bReverseUpperBone = (CosAngle < 0.f);
+
+		// Angle between upper limb and DesiredDir
+		// ACos clamps internally so we dont need to worry about out-of-range values here.
+		const float Angle = acos(CosAngle);
+
+		// Now we calculate the distance of the joint from the root -> effector line.
+		// This forms a right-angle triangle, with the upper limb as the hypotenuse.
+		const float JointLineDist = UpperLimbLength * sin(Angle);
+
+		// And the final side of that triangle - distance along DesiredDir of perpendicular.
+		// ProjJointDistSqr can't be neg, because JointLineDist must be <= UpperLimbLength because appSin(Angle) is <= 1.
+		const float ProjJointDistSqr = (UpperLimbLength*UpperLimbLength) - (JointLineDist*JointLineDist);
+		// although this shouldn't be ever negative, sometimes Xbox release produces -0.f, causing ProjJointDist to be NaN
+		// so now I branch it. 						
+		float ProjJointDist = (ProjJointDistSqr > 0.f) ? sqrt(ProjJointDistSqr) : 0.f;
+		if (bReverseUpperBone)
+		{
+			ProjJointDist *= -1.f;
+		}
+
+		// So now we can work out where to put the joint!
+		OutJointPos = RootPos + (ProjJointDist * DesiredDir) + (JointLineDist * JointBendDir);
+	}
+
+	chain->m_links[1]->SetJointsPosition_Global(OutJointPos);
+	chain->m_links[0]->SetJointsPosition_Global(OutEndPos);
+
 	/*/
 	float length, lengthSqr, lengthInv, x, y;
 	Vector3 vec0, vec1;
@@ -46,7 +122,7 @@ void TwoBoneSolver::Solve(IKChain* chain, const Vector3& goal)
 	
 
 	
-
+	/*/
 	float rootToMidLength = chain->getLinksLength(1);
 	float midToEndLength = chain->getLinksLength(0);
 	float rootToEndLength = calcDistance(chain->getRootPosition_Global(), goal);
@@ -68,7 +144,7 @@ void TwoBoneSolver::Solve(IKChain* chain, const Vector3& goal)
 	Vector3 midDirection = chain->getMidJointDirection();
 	Matrix4 rotationMatMid = chain->getLinksJoint(1)->getGlobalTransform().getInverse().rotation.getAsMatrix();
 	
-	//*/
+	/*
 	{
 		Matrix4 rotationMatRoot = chain->getLinksJoint(2)->getGlobalTransform().getInverse().rotation.getAsMatrix();
 		Vector3 dirFromRootToGoalRoot = rotationMatRoot.TransformDirection(dirFromRootToGoal);
@@ -85,6 +161,7 @@ void TwoBoneSolver::Solve(IKChain* chain, const Vector3& goal)
 		chain->getRootJoint()->SetRotation(rootRot);
 		chain->UpdateAllParentTransforms();
 	}
+	//*/
 	/*/
 	{
 		
