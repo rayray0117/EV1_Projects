@@ -1,29 +1,16 @@
 Assignment
 
-Solution file: Assignment.sln
-
-Known Issues: 
-Leaking D3D memory somewhere. Most likely leaking from Game.cpp because it is a mess and not engine side.
-Removed Memory Tracking and Shutting Down the Logger because they broke stuff and I had enough of it!
+Solution file: NetMinecraft.sln
 
 How To Use:
-Press
-  0 = Play one off effect       Note: Uses the space effect so look the same as one of the Persistent effect emitters. Recommend Destroying the Persistent Effect before playing.
-  1 = Destroys the persistent effect, but lets it play out
-  2 = Destroys the persistent effect immediately
+wasd = movement
+mouse = look
+space = jump
+left click = remove block
+right click = place block
+number keys = change block type
 
- Particle System Code contains lots of comments to explain my thought process and how to use the system.
- SetupParticleStuff in Game.cpp shows an example of creating an emitter from code and adding it to a ParticleSystem that was built from XML code.
+Xbox controller supported (button mappings coming soon).
 
-Commands:
-profile_log_report 	| No params. Prints out the report to the logger. Call log_flush afterwards to hopefully avoid above issues stopping the write
-profile_pause 		| No params. Pauses the profiler.
-profile_resume 		| No params. Resumes profiling.
-profile_view_flat	| No params. Changes the profiler to print/render with a flat view
-profile_view_tree	| No params. Changes the profiler to print/render with a tree view
-
-log_copy 		| Params: filepath. Closes log, makes a copy (not sure if it works right, it just made an empty file but my log may have been empty) and  
-
-
-Code is under the ParticlesSystem filter. Includes: ParticleManager, ParticleSystem, ParticleEmitter, and Particle.
-See a05_particles.docx to see what was attempted.
+Known Issues:
+Code is currently messy. Original game was made during the second mod (2-3 months of guildhall) with only single player in mind and with most engine features not available (originally rendered with OpenGL). Splitscreen mutliplayer was added with less than a weeks worth of time. Later the project was converted to DX11 the same time the engine was being converted to DX11 in a week. Much later networking was added on top of the game in a week. These quick iterations (and lack of knowledge and experience early on) lead to the mess. For more accurate look at my code see Roguelike!
