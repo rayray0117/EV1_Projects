@@ -1,0 +1,124 @@
+<MapDefinitions>
+  <MapDefinition name="Basic_1" dimensions="10 10" defaultTile="grass" BGM="Data/Audio/Music/06.mp3">
+    <Generation generator="FromFile" file="Data/Gameplay/Maps/BasicWalledSquare.xml"/>
+  </MapDefinition>
+  <MapDefinition name="RPTest" dimensions="25 25" defaultTile="grass"  BGM="Data/Audio/Music/Moonlight_Tango.mp3">
+    <Generation generator="RoomsAndPaths">
+      <Rooms maxTries ="5 10" widths="3 6" heights="3 7" floor="stoneFloor" wall="wall"/>
+      <Paths floor="ground"/>
+    </Generation>
+  </MapDefinition>
+  <MapDefinition name="PerlinTest" dimensions="55 55" defaultTile="grass"  BGM="Data/Audio/Music/Wise_Owl_Forest.mp3">
+    <Generation generator="Perlin" scale="2" numOctaves="6" persistence="7.6" octScale="2">
+      <Rule range="0.0 1.0" newType="ground"/>
+    </Generation>
+  </MapDefinition>
+  <MapDefinition name="CellTest" dimensions="50 50" defaultTile="grass"  BGM="Data/Audio/Music/09.mp3">
+    <!-- <Generation generator="Perlin" scale="2" numOctaves="6" persistence="7.6" octScale="2">
+      <Rule range="0.0 1.0" newType="ground"/>
+    </Generation>-->
+    <Generation generator="CellAuto" numIterations="4">
+      <Rule range="2 8" ifMyTile="grass" ifThierTile="grass" newType="ground"/> 
+      <Rule range="6 8" ifMyTile="ground" ifThierTile="ground" newType="wall"/>
+    </Generation>
+  </MapDefinition>
+  <MapDefinition name="SpawnTest" dimensions="30 30" defaultTile="grass"  BGM="Data/Audio/Music/Moonlight_Tango.mp3" sightBonus="10">
+    <Generation generator="RoomsAndPaths">
+      <Rooms maxTries ="3 7" widths="3 9" heights="3 9" floor="stoneFloor" wall="wall"/>
+      <Paths floor="ground"/>
+    </Generation>
+    
+    <Pawn name="orc">
+      <SpawnAt tileCoords="2 2" force="true"/>
+      <SpawnOn tile="ground" number="4 6" tries="3"/>
+      <SpawnOn tile="grass" number="3 12" tries="13"/>
+    </Pawn>
+    <!-- 
+    <Pawn name="goblin">
+      <SpawnOn tile="grass" number="9 13" tries="14"/>
+    </Pawn>
+    -->
+    <Pawn name="player" controller="0">
+      <SpawnOn tile="stoneFloor" number="1 1" tries="34"/>
+    </Pawn>
+     
+   
+  </MapDefinition>
+
+  <MapDefinition name="SpawnF" dimensions="15 15" defaultTile="grass"  BGM="Data/Audio/Music/Queens.mp3">
+    <Generation generator="RoomsAndPaths">
+      <Rooms maxTries ="3 4" widths="3 5" heights="3 5" floor="ground" wall="grass"/>
+      <Paths floor="ground"/>
+    </Generation>
+    <!--
+    <Pawn name="orc">
+      <SpawnAt tileCoords="2 2" force="true"/>
+      <SpawnOn tile="ground" number="4 6" tries="3"/>
+      <SpawnOn tile="grass" number="3 12" tries="13"/>
+    </Pawn>
+    
+    <Pawn name="goblin">
+      <SpawnOn tile="grass" number="9 13" tries="14"/>
+    </Pawn>
+     -->
+    <Pawn name="player" controller="0">
+      <SpawnOn tile="grass" number="1 1" tries="34"/>
+    </Pawn>
+    <Feature name="box">
+      <SpawnOn tile="ground" number="3 10" tries="10"/>
+      <Inventory>
+        <Item name="Gold" chance=".9"/>
+      </Inventory>
+    </Feature>
+    <Pawn name="wanderling" controller="1">
+      <SpawnOn tile="ground" number="1 1" tries="34"/>
+      <Inventory>
+        <Item name="Potion" chance="1."/>
+      </Inventory>
+    </Pawn>
+  </MapDefinition>
+
+  <MapDefinition name="TwoPawns" dimensions="15 15" defaultTile="stoneFloor"  BGM="Data/Audio/Music/Demon.mp3">
+    <Generation generator="FromFile" file="Data/Gameplay/Maps/BasicWalledSquare.xml"/>
+    <Pawn name="player" controller="0">
+      <SpawnOn tile="grass" number="2 2" tries="34"/>
+    </Pawn>
+    <Pawn name="wanderling" controller="1">
+      <SpawnOn tile="ground" number="1 3" tries="34"/>
+      <Inventory>
+        <Item name="Potion" chance="1."/>
+      </Inventory>
+    </Pawn>
+  </MapDefinition>
+
+  <!--This runs at 30fps in debug, don't make dimensions="200 200" or else it gets so small it renders a black screen-->
+  <MapDefinition name="RenderTest" dimensions="100 100" defaultTile="grass"  BGM="Data/Audio/Music/Veniccio.mp3">
+    <Generation generator="Perlin" scale="2" numOctaves="6" persistence="7.6" octScale="2">
+      <Rule range="0.0 1.0" newType="ground"/>
+    </Generation>
+    <Generation generator="CellAuto" numIterations="2">
+      <Rule range="2 4" ifMyTile="grass" ifThierTile="grass" newType="ground"/>
+      <Rule range="6 8" ifMyTile="ground" ifThierTile="ground" newType="wall"/>
+    </Generation>
+    <Pawn name="player" controller="0">
+      <SpawnOn tile="grass" number="1 1" tries="34"/>
+    </Pawn>
+    <!--
+    <Pawn name="wanderling" controller="1">
+      <SpawnOn tile="ground" number="1 3" tries="34"/>
+    </Pawn>
+    -->
+  </MapDefinition>
+
+  <MapDefinition name="ViewTest" dimensions="55 55" defaultTile="grass"  BGM="Data/Audio/Music/The_Dark_Battle.mp3" sightBonus="10">
+    
+    <Generation generator="Perlin" scale="2" numOctaves="5" persistence=".6" octScale="2">
+      <Rule range="0.9 1.0" newType="wall"/>
+    </Generation>
+    
+    <Pawn name="player" controller="0">
+      <SpawnOn tile="grass" number="1 1" tries="34"/>
+    </Pawn>
+  </MapDefinition>
+  
+</MapDefinitions>

@@ -1,0 +1,341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="General">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Gameplay">
+      <UniqueIdentifier>{52d9fd0f-aba4-49af-9cd6-9ab6e9bb8b69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gameplay\Enviorment">
+      <UniqueIdentifier>{09e162e5-c4c7-4c9c-977b-abc095b37c8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gameplay\Actors">
+      <UniqueIdentifier>{0058f7a5-ebd4-4cca-bb84-ce21a036f037}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gameplay\ObjectData">
+      <UniqueIdentifier>{80fed8c8-55f9-46e7-abaa-9209f0f86f66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gameplay\Frameworks">
+      <UniqueIdentifier>{e85dfaaa-c24d-4a04-a7ce-205e7f9f4cc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gameplay\AI">
+      <UniqueIdentifier>{4cf4a815-df88-44c1-8930-011395a04971}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gameplay\Rendering">
+      <UniqueIdentifier>{c11e02dd-0e38-4e47-9080-fb8e8822e551}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gameplay\Definitions">
+      <UniqueIdentifier>{794018b8-a84b-48db-b375-c9a8217fb38a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gameplay\Enviorment\MapGeneration">
+      <UniqueIdentifier>{686360dd-376d-4922-beab-92e282ce354c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gameplay\Frameworks\Controllers">
+      <UniqueIdentifier>{09e4b5a9-f67d-4398-8a68-ccc0cb778599}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gameplay\Frameworks\GameStates">
+      <UniqueIdentifier>{f3eaab5a-8f3c-43bf-b3d9-92ca76c53ae2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XMLs">
+      <UniqueIdentifier>{5f192d94-e4ad-4449-998c-ccba143792b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gameplay\Frameworks\GameStates\Menus">
+      <UniqueIdentifier>{fb07294e-ace1-414d-b346-bc878b676593}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gameplay\Frameworks\GameStates\InGame">
+      <UniqueIdentifier>{c4ecdb8f-26c0-467d-a131-4c045f2aad2e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main_Win32.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
+    <ClCompile Include="App.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="GameCommon.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Gameplay\Enviorment</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Gameplay\Enviorment</Filter>
+    </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>Gameplay\Enviorment</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>Gameplay\Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="Pawn.cpp">
+      <Filter>Gameplay\Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>Gameplay\ObjectData</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Gameplay\ObjectData</Filter>
+    </ClCompile>
+    <ClCompile Include="Feature.cpp">
+      <Filter>Gameplay\Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="Behavior.cpp">
+      <Filter>Gameplay\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="WanderBehavior.cpp">
+      <Filter>Gameplay\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="PursueBehavior.cpp">
+      <Filter>Gameplay\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="FleeBehavior.cpp">
+      <Filter>Gameplay\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Gameplay\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera2D.cpp">
+      <Filter>Gameplay\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="PawnDefinition.cpp">
+      <Filter>Gameplay\Definitions</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemDefinition.cpp">
+      <Filter>Gameplay\Definitions</Filter>
+    </ClCompile>
+    <ClCompile Include="FeatureDefinition.cpp">
+      <Filter>Gameplay\Definitions</Filter>
+    </ClCompile>
+    <ClCompile Include="TileDefinition.cpp">
+      <Filter>Gameplay\Definitions</Filter>
+    </ClCompile>
+    <ClCompile Include="Stats.cpp">
+      <Filter>Gameplay\ObjectData</Filter>
+    </ClCompile>
+    <ClCompile Include="MapDefinition.cpp">
+      <Filter>Gameplay\Definitions</Filter>
+    </ClCompile>
+    <ClCompile Include="MapGeneratorFromFile.cpp">
+      <Filter>Gameplay\Enviorment\MapGeneration</Filter>
+    </ClCompile>
+    <ClCompile Include="MapGeneratorRoomsAndMazes.cpp">
+      <Filter>Gameplay\Enviorment\MapGeneration</Filter>
+    </ClCompile>
+    <ClCompile Include="Battle.cpp">
+      <Filter>Gameplay\ObjectData</Filter>
+    </ClCompile>
+    <ClCompile Include="LootDefinition.cpp">
+      <Filter>Gameplay\Definitions</Filter>
+    </ClCompile>
+    <ClCompile Include="MapGeneratorRoomsAndPaths.cpp">
+      <Filter>Gameplay\Enviorment\MapGeneration</Filter>
+    </ClCompile>
+    <ClCompile Include="MapGeneratorPerlin.cpp">
+      <Filter>Gameplay\Enviorment\MapGeneration</Filter>
+    </ClCompile>
+    <ClCompile Include="AIController.cpp">
+      <Filter>Gameplay\Frameworks\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>Gameplay\Frameworks\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerController.cpp">
+      <Filter>Gameplay\Frameworks\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="MapGeneratorCellularAutomata.cpp">
+      <Filter>Gameplay\Enviorment\MapGeneration</Filter>
+    </ClCompile>
+    <ClCompile Include="PathGenerator.cpp">
+      <Filter>Gameplay\Enviorment</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackBehavior.cpp">
+      <Filter>Gameplay\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="SpawnHelpers.cpp">
+      <Filter>Gameplay\Definitions</Filter>
+    </ClCompile>
+    <ClCompile Include="AdventureDefinition.cpp">
+      <Filter>Gameplay\Definitions</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStateMainMenu.cpp">
+      <Filter>Gameplay\Frameworks\GameStates\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStatePlay.cpp">
+      <Filter>Gameplay\Frameworks\GameStates\InGame</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStateStatsScreen.cpp">
+      <Filter>Gameplay\Frameworks\GameStates\InGame</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStateNewGameMenu.cpp">
+      <Filter>Gameplay\Frameworks\GameStates\Menus</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="App.hpp">
+      <Filter>General</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.hpp">
+      <Filter>Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="GameCommon.hpp">
+      <Filter>General</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.hpp">
+      <Filter>Gameplay\Enviorment</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.hpp">
+      <Filter>Gameplay\Enviorment</Filter>
+    </ClInclude>
+    <ClInclude Include="World.hpp">
+      <Filter>Gameplay\Enviorment</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.hpp">
+      <Filter>Gameplay\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="Pawn.hpp">
+      <Filter>Gameplay\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventory.hpp">
+      <Filter>Gameplay\ObjectData</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.hpp">
+      <Filter>Gameplay\ObjectData</Filter>
+    </ClInclude>
+    <ClInclude Include="Feature.hpp">
+      <Filter>Gameplay\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="Stats.hpp">
+      <Filter>Gameplay\ObjectData</Filter>
+    </ClInclude>
+    <ClInclude Include="Battle.hpp">
+      <Filter>Gameplay\ObjectData</Filter>
+    </ClInclude>
+    <ClInclude Include="Behavior.hpp">
+      <Filter>Gameplay\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="WanderBehavior.hpp">
+      <Filter>Gameplay\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="PursueBehavior.hpp">
+      <Filter>Gameplay\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="FleeBehavior.hpp">
+      <Filter>Gameplay\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.hpp">
+      <Filter>Gameplay\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera2D.hpp">
+      <Filter>Gameplay\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemDefinition.hpp">
+      <Filter>Gameplay\Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="PawnDefinition.hpp">
+      <Filter>Gameplay\Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="FeatureDefinition.hpp">
+      <Filter>Gameplay\Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="TileDefinition.hpp">
+      <Filter>Gameplay\Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="MapGenerator.hpp">
+      <Filter>Gameplay\Enviorment\MapGeneration</Filter>
+    </ClInclude>
+    <ClInclude Include="MapDefinition.hpp">
+      <Filter>Gameplay\Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="MapGeneratorFromFile.hpp">
+      <Filter>Gameplay\Enviorment\MapGeneration</Filter>
+    </ClInclude>
+    <ClInclude Include="MapGeneratorRoomsAndMazes.hpp">
+      <Filter>Gameplay\Enviorment\MapGeneration</Filter>
+    </ClInclude>
+    <ClInclude Include="LootDefinition.hpp">
+      <Filter>Gameplay\Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="MapGeneratorRoomsAndPaths.hpp">
+      <Filter>Gameplay\Enviorment\MapGeneration</Filter>
+    </ClInclude>
+    <ClInclude Include="MapGeneratorPerlin.hpp">
+      <Filter>Gameplay\Enviorment\MapGeneration</Filter>
+    </ClInclude>
+    <ClInclude Include="AIController.hpp">
+      <Filter>Gameplay\Frameworks\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.hpp">
+      <Filter>Gameplay\Frameworks\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerController.hpp">
+      <Filter>Gameplay\Frameworks\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.hpp">
+      <Filter>Gameplay\Frameworks\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="MapGeneratorCellularAutomata.hpp">
+      <Filter>Gameplay\Enviorment\MapGeneration</Filter>
+    </ClInclude>
+    <ClInclude Include="PathGenerator.hpp">
+      <Filter>Gameplay\Enviorment</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackBehavior.hpp">
+      <Filter>Gameplay\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnHelpers.hpp">
+      <Filter>Gameplay\Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="AdventureDefinition.hpp">
+      <Filter>Gameplay\Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStateType.hpp">
+      <Filter>Gameplay\Frameworks\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStateMainMenu.hpp">
+      <Filter>Gameplay\Frameworks\GameStates\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStatePlay.hpp">
+      <Filter>Gameplay\Frameworks\GameStates\InGame</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStateStatsScreen.hpp">
+      <Filter>Gameplay\Frameworks\GameStates\InGame</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStateNewGameMenu.hpp">
+      <Filter>Gameplay\Frameworks\GameStates\Menus</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\..\Run_Win32\Data\Gameplay\Features.xml">
+      <Filter>XMLs</Filter>
+    </Xml>
+    <Xml Include="..\..\Run_Win32\Data\Gameplay\Items.xml">
+      <Filter>XMLs</Filter>
+    </Xml>
+    <Xml Include="..\..\Run_Win32\Data\Gameplay\Maps.xml">
+      <Filter>XMLs</Filter>
+    </Xml>
+    <Xml Include="..\..\Run_Win32\Data\Gameplay\Pawns.xml">
+      <Filter>XMLs</Filter>
+    </Xml>
+    <Xml Include="..\..\Run_Win32\Data\Gameplay\Tiles.xml">
+      <Filter>XMLs</Filter>
+    </Xml>
+    <Xml Include="..\..\Run_Win32\Data\Gameplay\Maps\BasicWalledSquare.xml">
+      <Filter>XMLs</Filter>
+    </Xml>
+    <Xml Include="..\..\Run_Win32\Data\Gameplay\Adventures.xml">
+      <Filter>XMLs</Filter>
+    </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Run_Win32\Data\Config\Settings.config">
+      <Filter>XMLs</Filter>
+    </None>
+  </ItemGroup>
+</Project>

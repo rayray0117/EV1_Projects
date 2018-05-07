@@ -1,0 +1,18 @@
+<Map>
+  <Legend>
+    <Tile key="#" type="wall"/>
+    <Tile key="." type="grass"/>
+  </Legend>
+  <Tiles>
+    <Row0 tiles="##########"/>
+    <Row1 tiles="#........#"/>
+    <Row2 tiles="#........#"/>
+    <Row3 tiles="#........#"/>
+    <Row4 tiles="#........#"/>
+    <Row5 tiles="#........#"/>
+    <Row6 tiles="#........#"/>
+    <Row7 tiles="#........#"/>
+    <Row8 tiles="#.....#..#"/>
+    <Row9 tiles="##########"/>
+  </Tiles>
+</Map>

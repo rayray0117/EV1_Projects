@@ -1,0 +1,4 @@
+<FeatureDefinitions>
+  <Feature name="box" glyph="b" fillColor="244 164 96 255" glyphColor="0 0 0 255" isSolid="true"/>
+  <Feature name="stairsDown" glyph='>' fillColor="0 0 0 0" glyphColor="255 255 255 255" isSolid="false" exit="true"/> <!--Exits should only be spawned in Adventures.xml, NOT Maps.XML-->
+</FeatureDefinitions>

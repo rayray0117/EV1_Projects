@@ -1,0 +1,82 @@
+<PawnDefinitions>
+  <Pawn name="player" faction="playable">
+    <Sprite glyph="@" glyphColor="255 255 255 255"/>
+    <!--
+    Only stats being used currently are Health, Attack, and Defense.
+    Some stats may be removed later if found not necessary for the game design.
+    As such this player pawn will always have all stats explictly set.
+    If a stat is set to 0, error checking thinks you didn't set a value for it and pops up an error. Will fix later.
+    -->
+    <Stats> 
+      <Health value="42"/>
+      <Stamina value="20"/>
+      <Movement value="3"/>
+      <Speed value="1"/>
+      <Attack value="5"/>
+      <Defense value="3"/>
+      <Magic value="2"/>
+      <Sight value="4"/>
+    </Stats>
+    <Behaviors>
+      <Wander/>
+    </Behaviors>
+  </Pawn>
+
+  <Pawn name="orc" faction="npc">
+    <Sprite glyph="o" glyphColor="192 64 64 255"/>
+    <Stats>
+      <Health value="64"/>
+      <Stamina value="5"/>
+      <Movement value="1"/>
+      <Speed value="1"/>
+      <Attack value="6"/>
+      <Defense value="4"/>
+      <Sight value="2"/>
+      <!--
+      <Magic value="0"/>
+      -->
+    </Stats>
+    <Behaviors>
+      <Pursue/>
+      <Wander/>
+    </Behaviors>
+    <SoundFX tookDamage="Data/Audio/SFX/Troll01_Hurt2.wav"/>
+  </Pawn>
+  <Pawn name="goblin" faction="npc">
+    <Sprite glyph="g" glyphColor="64 192 64 255"/>
+    <Stats>
+      <Health value="24"/>
+      <Stamina value="10"/>
+      <Movement value="1"/>
+      <Speed value="1"/>
+      <Attack value="6"/>
+      <Defense value="4"/>
+      <!--
+      <Magic value="0"/>
+      -->
+    </Stats>
+    <Behaviors>
+      <Flee/>
+      <Wander/>
+    </Behaviors>
+    <SoundFX tookDamage="Data/Audio/SFX/SFX_Player_Death_Female.wav"/>
+  </Pawn>
+  <Pawn name="wanderling" faction="npc">
+    <Sprite glyph="w" glyphColor="124 82 244 255"/>
+    <Stats>
+      <Health value="1"/>
+      <Stamina value="1"/>
+      <Movement value="5"/>
+      <Speed value="1"/>
+      <!--<Attack value="0"/>-->
+      <Defense value="1"/>
+      <Sight value="10"/>
+      <!--
+      <Magic value="0"/>
+      -->
+    </Stats>
+    <Behaviors>
+      <Wander/>
+    </Behaviors>
+  </Pawn>
+</PawnDefinitions>

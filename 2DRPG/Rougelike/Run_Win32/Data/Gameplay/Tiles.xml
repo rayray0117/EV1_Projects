@@ -1,0 +1,28 @@
+<TileDefinitions>
+
+	<TileDefinition name="grass" isSolid="false">
+		<FillColor color="21 70 0 255"/>
+    <FillColor color="31 82 0 255"/>
+    <FillColor color="19 65 0 255"/>
+		<GlyphColor color="52 128 16 255"/>
+    <GlyphColor color="47 128 16 255"/>
+		<Glyph glyph=" "/>
+    <Glyph glyph="."/>
+    <Glyph glyph="'"/>
+	</TileDefinition>
+	<TileDefinition name="wall" isSolid="true">
+		<FillColor color="128 128 128 255"/>
+		<GlyphColor color="192 192 192 255"/>
+		<Glyph glyph="#"/>
+		</TileDefinition>
+  <TileDefinition name="ground" isSolid="false">
+		<FillColor color="244 164 96 255"/>
+		<GlyphColor color="192 82 64 255"/>
+		<Glyph glyph=" "/>
+		</TileDefinition>
+  <TileDefinition name="stoneFloor" isSolid="false">
+    <FillColor color="192 192 192 255"/>
+    <GlyphColor color="64 64 64 255"/>
+    <Glyph glyph=" "/>
+  </TileDefinition>
+</TileDefinitions>

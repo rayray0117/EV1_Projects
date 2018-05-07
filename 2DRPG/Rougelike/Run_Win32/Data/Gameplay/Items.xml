@@ -1,0 +1,20 @@
+<ItemDefinitions>
+
+  <ItemDefinition name="Potion" slot="none"/>
+  <ItemDefinition name="Gold"/>
+  <!--
+  //I may add these back if I find just having one piece of armor is boring but for now simplifying the design
+  <ItemDefinition name="Turker Hat" slot="head">
+    <Stats>
+      <Defense value="3"/>
+      <Speed value="1"/>
+      <Intelligence value="-3"/>
+    </Stats>
+  </ItemDefinition>
+  <ItemDefinition name="Lucky Wristbands" slot="arms">
+    <Stats>
+      <Luck value="10"/>
+    </Stats>
+  </ItemDefinition>
+   -->
+</ItemDefinitions>

@@ -1,0 +1,30 @@
+<Adventures>
+  <Adventure name="Test" title="The Great Adventure Test" font="Bisasam_16x16" sprites="SquirrelFixedFont" startMap="First_Map">
+    <Map name="First_Map" def="RPTest">
+      <Exit name="stairsDown" toMap="Second_Map">
+        <SpawnOn tile="ground" number="1 1" tries="3"/>
+      </Exit>
+      <Pawn name="player" controller="0">
+        <SpawnOn tile="stoneFloor" number="1 1" tries="34"/>
+      </Pawn>
+    </Map>
+    <Map name="Second_Map" def="SpawnTest"/>
+  </Adventure>
+  
+  <Adventure name="Old" title="Old Man Rage" font="Bisasam_16x16" startMap="First_Map">
+    <Map name="First_Map" def="RPTest">
+      <Exit name="stairsDown" toMap="Second_Map">
+        <SpawnOn tile="ground" number="1 1" tries="3"/>
+      </Exit>
+      <Pawn name="orc" controller="0">
+        <SpawnOn tile="stoneFloor" number="1 1" tries="34"/>
+      </Pawn>
+      <Pawn name="player">
+        <SpawnAt tileCoords="2 2" force="true"/>
+        <SpawnOn tile="ground" number="4 6" tries="3"/>
+        <SpawnOn tile="grass" number="3 12" tries="13"/>
+      </Pawn>
+    </Map>
+    <Map name="Second_Map" def="ViewTest"/>
+  </Adventure>
+</Adventures>
